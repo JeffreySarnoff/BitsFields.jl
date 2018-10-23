@@ -17,3 +17,10 @@ bitfields = BitFields(bitfield1, bitfield2, bitfield3,
 @test bitfield3 == bitfields[3]
 @test (bitfield4, bitfield5) == bitfields[4:5]
 
+caught_error = false
+try
+    BitField(UInt16, 7, 10)
+catch
+    caught_error = true
+end
+@test caught_error
