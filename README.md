@@ -1,5 +1,5 @@
 # BitsFields.jl
-### Use adjacent bits as a bitfield; use adjacent bitfields to copartition the useful.
+#### Use adjacent bits as a bitfield; use adjacent bitfields to copartition the useful.
 
 ----
 
