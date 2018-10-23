@@ -1,6 +1,15 @@
 # BitsFields.jl
-using adjacent bits as fields
+### Use adjacent bits as a bitfield; use adjacent bitfields to copartition the useful.
 
+----
+
+#### Copyright ©&thinsp;2018 by Jeffrey Sarnoff. &nbsp;&nbsp; This work has been released under The MIT License.
+
+-----
+
+[![Build Status](https://travis-ci.org/JeffreySarnoff/BitsFields.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/BitsFields.jl)
+
+-----
 ## example
 ```julia
 using BitsFields
