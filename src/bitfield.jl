@@ -18,31 +18,41 @@ function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits}
 end
 
 
-function isolate(source::U, bitfield::BitField{U}) where {U<:UBits}
+@inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
     return source & bitfield.maskof1s
 end
 
-function Base.get(source::U, bitfield::BitField{U}) where {U<:UBits}
-    return isolate(source, bitfield) >> bitfield.shift
-end
-
-function filter(source::U, bitfield::BitField{U}) where {U<:UBits}
+@inline function filter(bitfield::BitField{U}, source::U) where {U<:UBits}
     return source & bitfield.maskof0s
 end
 
-function put(value::U, bitfield::BitField{U}) where {U<:UBits}
+@inline function Base.get(bitfield::BitField{U}, source::U) where {U<:UBits}
+    return isolate(bitfield, source) >> bitfield.shift
+end
+
+@inline function Base.get(bitfield::BitField{U}, source::Base.RefValue{U}) where {U<:UBits}
+    return isolate(bitfield, source[]) >> bitfield.shift
+end
+
+@inline function put(bitfield::BitField{U}, value::U) where {U<:UBits}
     value << bitfield.shift
 end
 
-function set(target::U, value::U, bitfield::BitField{U})  where {U<:UBits}
-    filter(target, bitfield) | put(value, bitfield)
+@inline function set(bitfield::BitField{U}, value::U, target::U)  where {U<:UBits}
+    filter(bitfield, target) | put(bitfield, value)
 end
 
-
-function Base.set!(target::Base.RefValue{U}, value::U, bitfield::BitField{U})  where {U<:UBits}
-    target[] = filter(target[], bitfield) | put(value, bitfield)
+@inline function set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
+    target[] = set(bitfield, value, target[])
     return nothing
 end
+
+set(bitfield::BitField{U}, value::UBits, target::U) where {U<:UBits} =
+    set(bitfield, value%U, target)
+
+set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
+    set!(bitfield, value%U, target)
+
 
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}
     if !(bitspan > 0 && bitspan + bitshift <= bitsizeof(U))
