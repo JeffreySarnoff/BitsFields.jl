@@ -8,7 +8,6 @@
 -----
 
 [![Build Status](https://travis-ci.org/JeffreySarnoff/BitsFields.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/BitsFields.jl)
-
 [![Coverage Status](https://coveralls.io/repos/github/JeffreySarnoff/BitsMasks.jl/badge.svg)](https://coveralls.io/github/JeffreySarnoff/BitsMasks.jl)
 -----
 ## example
