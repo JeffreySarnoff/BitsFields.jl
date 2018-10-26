@@ -17,3 +17,24 @@ Base.getindex(x::BitFields{N,U}, idx::Int) where {N,U} =
 
 Base.getindex(x::BitFields{N,U}, idxs::AbstractRange{Int}) where {N,U} =
     getindex(x.bitfields, idxs)
+
+function Base.iterate(x::BitFields{N,U}) where {N,U<:UBits}
+    if length(x) > 0
+       x[1], 2
+    else
+       nothing
+    end
+end
+
+function Base.iterate(x::BitFields{N,U}, state::Int) where {N,U<:UBits}
+    if state > length(x)
+       nothing
+    else
+       x[state], state+1
+    end
+end
+
+Base.get(bitfields::BitFields{N,U}, source::U) where {N, U<:UBits} = get.(bitfields, source)
+
+Base.get(bitfields::BitFields{N,U}, source::Base.RefValue{U}) where {N, U<:UBits} = get.(bitfields, source[])
+
