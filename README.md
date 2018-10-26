@@ -87,8 +87,18 @@ set!(bitfields[5], valfield5, target)
 set!(bitfields[6], valfield6, target)
 
 fields = get(bitfields, target)
+#=
+6-element Array{UInt64,1}:
+ 0x00000000000000ae
+ 0x0000000000000006
+ 0x00000000000005f3
+ 0x0000000000003113
+ 0x0000000000007654
+ 0x0000000000000003
+=#
 
 set!(bitfields[1], 0x12, target)
 get(bitfields[1], target)
+# 0x0000000000000012
 
 ```
