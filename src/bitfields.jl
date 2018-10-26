@@ -1,4 +1,4 @@
-struct BitFields{N,U}    # N UIntBits{U} fields
+struct BitFields{N,U}    # N BitField{U} fields
    bitfields::NTuple{N,BitField{U}}
 
    function BitFields(bitfields::Vararg{BitField{U}, N}) where {N,U}
