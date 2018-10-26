@@ -7,7 +7,7 @@ struct BitField{U}
     maskof0s::U
 end
 
-function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:BitUInt}
+function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UInts}
     span  = BitUInt(bitspan)
     shift = BitUInt(bitshift)
     validate(U, span, shift)
@@ -18,28 +18,28 @@ function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:BitUInt}
 end
 
 
-function isolate(source::U, bitfield::BitField{U}) where {U<:BitUInt}
+function isolate(source::U, bitfield::BitField{U}) where {U<:UInts}
     return source & bitfield.maskof1s
 end
 
-function Base.get(source::U, bitfield::BitField{U}) where {U<:BitUInt}
+function Base.get(source::U, bitfield::BitField{U}) where {U<:UInts}
     return isolate(source, bitfield) >> bitfield.shift
 end
 
-function filter(source::U, bitfield::BitField{U}) where {U<:BitUInt}
+function filter(source::U, bitfield::BitField{U}) where {U<:UInts}
     return source & bitfield.maskof0s
 end
 
-function put(value::U, bitfield::BitField{U}) where {U<:BitUInt}
+function put(value::U, bitfield::BitField{U}) where {U<:UInts}
     value << bitfield.shift
 end
 
-function set(target::U, value::U, bitfield::BitField{U})  where {U<:BitUInt}
+function set(target::U, value::U, bitfield::BitField{U})  where {U<:UInts}
     filter(target, bitfield) | put(value, bitfield)
 end
 
 
-function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:BitUInt}
+function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UInts}
     if !(bitspan > 0 && bitspan + bitshift <= bitsizeof(U))
         if bitspan <= 0
             throw(ErrorException("bitspan ($bitspan) must be > 0"))
