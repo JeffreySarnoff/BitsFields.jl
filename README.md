@@ -13,7 +13,48 @@
 [![codecov.io](http://codecov.io/github/JeffreySarnoff/BitsMasks.jl/coverage.svg?branch=master)](http://codecov.io/github/JeffreySarnoff/BitsMasks.jl?branch=master)
 
 -----
-## example
+
+## Purpose
+
+This package provides an easy way to describe and use bitfields within Julia.
+
+## First Example
+
+We want two bitfields, one that is six bits wide and another that is ten bits wide.
+The total span for both bitfields is 6+10 == 16 bits, so a UInt16 will hold them.
+
+```
+using BitsFields
+
+bitfield1span  =  6
+bitfield1shift =  0
+bitfield2span  = 10
+bitfield2shift = bitfield1span
+
+bitfield1 = BitField(UInt16, bitfield1span, bitfield1shift)
+bitfield2 = BitField(UInt16, bitfield2span, bitfield2shift)
+
+bitfields = BitFields(bitfield1, bitfield2)
+```
+Now we can set the fields and get their values.
+```
+thebitfields = Ref(UInt16)
+
+bitfield1value = 0x15
+bitfield2value = 0x02f6
+
+set!(bitfields[1], bitfield1value, thebitfields)
+set!(bitfields[2], bitfield2value, thebitfields)
+
+get(bitfields[2], thebitfields) # UInt16(0x02f6)
+
+get(bitfields, thebitfields) # [ UInt16(0x15), UInt16(0x02f6) ]
+```
+A bitfield may be changed, just set! it again.
+
+
+## Use
+
 ```julia
 using BitsFields
 
