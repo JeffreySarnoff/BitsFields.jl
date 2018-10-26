@@ -1,6 +1,6 @@
 module BitsFields
 
-export BitField, BitFields
+export BitField, BitFields, set!
 
 const UBits = Union{UInt128,UInt64,UInt32,UInt16,UInt8}
 
