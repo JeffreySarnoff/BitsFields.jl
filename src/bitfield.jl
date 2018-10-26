@@ -39,6 +39,11 @@ function set(target::U, value::U, bitfield::BitField{U})  where {U<:UBits}
 end
 
 
+function Base.set!(target::Base.RefValue{U}, value::U, bitfield::BitField{U})  where {U<:UBits}
+    target[] = filter(target[], bitfield) | put(value, bitfield)
+    return nothing
+end
+
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}
     if !(bitspan > 0 && bitspan + bitshift <= bitsizeof(U))
         if bitspan <= 0
