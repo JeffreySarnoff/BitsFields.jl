@@ -46,9 +46,9 @@ bitfield2value = 0x02f6
 set!(bitfields[1], bitfield1value, thebitfields)
 set!(bitfields[2], bitfield2value, thebitfields)
 
-get(bitfields[2], thebitfields) # UInt16(0x02f6)
+get(bitfields[2], thebitfields)  # UInt16(0x02f6)
 
-get(bitfields, thebitfields) # [ UInt16(0x15), UInt16(0x02f6) ]
+get(bitfields, thebitfields)     # [ UInt16(0x15), UInt16(0x02f6) ]
 ```
 A bitfield may be changed, just set! it again.
 
@@ -69,4 +69,26 @@ bitfield6 = BitField(utype,  4, 20+16+12+4+8);   #     64
 
 bitfields = BitFields(bitfield1, bitfield2, bitfield3,
                       bitfield4, bitfield5, bitfield6);
+
+valfield1 = 0xae;
+valfield2 = 0x06;
+valfield3 = 0x05f3;
+valfield4 = 0x3113;
+valfield5 = 0x7654;
+valfield6 = 0x03;
+
+target = Ref(zero(utype));
+
+set!(bitfields[1], valfield1, target)
+set!(bitfields[2], valfield2, target)
+set!(bitfields[3], valfield3, target)
+set!(bitfields[4], valfield4, target)
+set!(bitfields[5], valfield5, target)
+set!(bitfields[6], valfield6, target)
+
+fields = get(bitfields, target)
+
+set!(bitfields[1], 0x12, target)
+get(bitfields[1], target)
+
 ```
