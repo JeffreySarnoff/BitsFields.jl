@@ -1,7 +1,7 @@
 struct BitFields{N,U}    # N UIntBits{U} fields
-   bitfields::NTuple{N,UIntBits{U}}
+   bitfields::NTuple{N,BitField{U}}
 
-   function BitFields(bitfields::Vararg{UIntBits{U}, N}) where {N,U}
+   function BitFields(bitfields::Vararg{BitField{U}, N}) where {N,U}
        return new{N,U}(bitfields)
    end
 end
