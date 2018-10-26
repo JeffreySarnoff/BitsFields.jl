@@ -2,7 +2,7 @@ module BitsFields
 
 export BitField, BitFields
 
-const UInts = Union{UInt128,UInt64,UInt32,UInt16,UInt8}
+const UBits = Union{UInt128,UInt64,UInt32,UInt16,UInt8}
 
 include("bitfield.jl")
 include("bitfields.jl")
