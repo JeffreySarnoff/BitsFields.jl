@@ -1,7 +1,6 @@
 using BitsFields
 using Test
 
-
 utype=UInt64;
 #                          span      shift          bits used
 bitfield1 = BitField(utype,  8,            0);   #      8
@@ -17,10 +16,9 @@ bitfields = BitFields(bitfield1, bitfield2, bitfield3,
 @test bitfield3 == bitfields[3]
 @test (bitfield4, bitfield5) == bitfields[4:5]
 
-caught_error = false
 try
-    BitField(UInt16, 7, 10)
+   BitField(UInt16, 7, 10)
+   @test false
 catch
-    caught_error = true
+   @test true
 end
-@test caught_error
