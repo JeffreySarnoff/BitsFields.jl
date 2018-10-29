@@ -9,8 +9,6 @@
 
 [![Build Status](https://travis-ci.org/JeffreySarnoff/BitsFields.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/BitsFields.jl)
 
-[![Coverage Status](https://coveralls.io/repos/github/JeffreySarnoff/BitsFields.jl/badge.svg?branch=master)](https://coveralls.io/github/JeffreySarnoff/BitsFields.jl?branch=master)
-[![codecov.io](http://codecov.io/github/JeffreySarnoff/BitsFields.jl/coverage.svg?branch=master)](http://codecov.io/github/JeffreySarnoff/BitsFields.jl?branch=master)
 
 -----
 
@@ -56,17 +54,23 @@ A bitfield may be changed, just set! it again.
 
 ## Use
 
+Each BitField embedded together as a sequence of BitFields share an unsigned integer bitstype.
+All fields must specify the same unsigned type, as above where all six bitfields specify `UInt64`.
+Any attempt to use more than one Unsigned type as "the mix UInts of different sizes is rejected.
+So are attempts to use anything other than an unsigned bitstype for BitField embedding.
+
+UInt64 is used for this when there is no unsigned type specified.  So you do not need to write it.
+
 ```julia
 using BitsFields
 
-utype=UInt64;
-#                          span      shift          bits used
-bitfield1 = BitField(utype,  8,            0);   #      8
-bitfield2 = BitField(utype,  4,            8);   #     12
-bitfield3 = BitField(utype, 12,          4+8);   #     24
-bitfield4 = BitField(utype, 16,       12+4+8);   #     40
-bitfield5 = BitField(utype, 20,    16+12+4+8);   #     60
-bitfield6 = BitField(utype,  4, 20+16+12+4+8);   #     64
+#                    span      shift          bits used
+bitfield1 = BitField(  8,            0);   #      8
+bitfield2 = BitField(  4,            8);   #     12
+bitfield3 = BitField( 12,          4+8);   #     24
+bitfield4 = BitField( 16,       12+4+8);   #     40
+bitfield5 = BitField( 20,    16+12+4+8);   #     60
+bitfield6 = BitField(  4, 20+16+12+4+8);   #     64
 
 bitfields = BitFields(bitfield1, bitfield2, bitfield3,
                       bitfield4, bitfield5, bitfield6);
