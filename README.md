@@ -19,8 +19,7 @@ This package provides an easy way to describe and use bitfields within Julia.
 ## Worked Example
 
 We want two bitfields, one that is six bits wide and another that is ten bits wide.
-
-The total span for both bitfields is 6+10 == 16 bits, so a UInt16 will hold them.
+The total span for both bitfields is 6+10 == 16 bits, so a `UInt16` will hold them.
 
 ```
 using BitsFields
@@ -35,15 +34,9 @@ field2 = BitField(UInt16, field2span, field2shift)
 
 bitfields = BitFields(bitfield1, bitfield2)
 ```
-To use the bitfields' specification, provide
-an unsigned value of the same type as that
-specified. Initialize it to be zero and
-provide that bitfield carrier as a `Ref`.
-
+To use the `bitfields`, provide a referenceable, type-matched and zeroed carrier. 
 ```
-# the bitfields are zeroed initially
-
-fieldsinuse = Ref(zero(UInt16))
+workingbits = Ref(zero(UInt16))
 ```
 Now we can set the fields and get their values.
 
@@ -51,13 +44,14 @@ Now we can set the fields and get their values.
 field1value = 0x15
 field2value = 0x02f6
 
-set!(bitfields[1], field1value, fieldsinuse)
-set!(bitfields[2], field2value, fieldsinuse)
+set!(bitfields[1], field1value, workingbits)
+set!(bitfields[2], field2value, workingbits)
 
-get(bitfields[2], fieldsinuse)  # UInt16(0x02f6)
+get(bitfields[2], workingbits)  # UInt16(0x02f6)
 
-get(bitfields, fieldsinuse)     # [ UInt16(0x15), UInt16(0x02f6) ]
+get(bitfields, workingbits)     # [ UInt16(0x15), UInt16(0x02f6) ]
 ```
+
 A bitfield may be changed, just set! it again.
 
 
