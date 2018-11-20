@@ -7,6 +7,10 @@ struct BitField{U}
     maskof0s::U
 end
 
+Base.eltype(::Type{BitField{U}}) where {U} = U
+Base.eltype(x::BitField{U}) where {U} = U
+
+
 function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
