@@ -17,7 +17,8 @@ function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits}
     return BitField{U}(span, shift, maskof1s, maskof0s)
 end
 
-
+BitField(bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift)
+        
 @inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
     return source & bitfield.maskof1s
 end
