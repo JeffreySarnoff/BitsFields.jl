@@ -5,11 +5,13 @@ struct BitField{U}
     shift::BitCount
     maskof1s::U
     maskof0s::U
+    symbol::Symbol
 end
 
 Base.eltype(::Type{BitField{U}}) where {U} = U
 Base.eltype(x::BitField{U}) where {U} = U
 
+symbol(x::BitField{U}) where {U<:UBits} = x.symbol
 
 function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits}
     span  = BitCount(bitspan)
