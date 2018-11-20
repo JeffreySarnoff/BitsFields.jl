@@ -90,3 +90,43 @@ namedfields.field5 === bitfields[5]
 namedfields.field6 === bitfields[6]
 
 ```
+## Use Case
+```julia
+
+
+using BitsFields
+
+
+fp64sign = 
+    BitField(UInt64, 
+             1, 63,
+             :sign)
+
+fp64exponent = 
+    BitField(UInt64, 
+             leading_ones(Base.exponent_mask(Float64)<<1),
+             63 - leading_ones(Base.exponent_mask(Float64)<<1),
+             :exponent)
+
+fp64significand =
+    BitField(UInt64,
+             trailing_ones(Base.significand_mask(Float64)),
+             0,
+             :significand)
+
+
+fp64 = BitFields(fp64sign, fp64exponent, fp64significand)
+
+float64 = NamedTuple(fp64);
+
+
+fpvalue = Ref(reinterpret(UInt64, inv(sqrt(Float64(2.0)))))
+
+
+set!(float64.exponent,
+     get(float64.exponent,fpvalue) + 1,
+     fpvalue)
+
+reinterpret(Float64,fpvalue[])
+1.414213562373095
+```
