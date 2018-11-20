@@ -44,6 +44,9 @@ symbol(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((symbol(bitfield) for bi
 
 function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    names  = symbol(bitfields)
+   if any(nothing .== names)
+      throw(ErrorException("attempt to create a NamedTuple with a missing name: ($names)"))
+   end
    values =((bitfields)...,)
    nt = NamedTuple{names,NTuple{N,BitField}}(values)
    return nt
