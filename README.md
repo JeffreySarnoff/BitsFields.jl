@@ -85,7 +85,7 @@ valfield4 = 0x3113;
 valfield5 = 0x7654;
 valfield6 = 0x03;
 
-target = Ref(zero(utype));
+target = Ref(zero(eltype(bitfields));
 
 set!(bitfields[1], valfield1, target)
 set!(bitfields[2], valfield2, target)
