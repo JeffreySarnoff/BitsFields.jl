@@ -2,28 +2,41 @@ using BitsFields
 using Test
 
 
-utype=UInt64;
-#                          span      shift          bits used
-bitfield1 = BitField(utype,  8,            0);   #      8
-bitfield2 = BitField(utype,  4,            8);   #     12
-bitfield3 = BitField(utype, 12,          4+8);   #     24
-bitfield4 = BitField(utype, 16,       12+4+8);   #     40
-bitfield5 = BitField(utype, 20,    16+12+4+8);   #     60
-bitfield6 = BitField(utype,  4, 20+16+12+4+8);   #     64
+field1span  =  6
+field1shift =  0
+field2span  = 10
+field2shift = field1span
+
+field1 = BitField(UInt16, field1span, field1shift)
+field2 = BitField(UInt16, field2span, field2shift)
+
+bitfields = BitFields(field1, field2)
+
+workingbits = Ref(zero(eltype(bitfields)))
+
+
+field1value = 0x15
+field2value = 0x02f6
+
+set!(bitfields[1], field1value, workingbits)
+set!(bitfields[2], field2value, workingbits)
+
+@test get(bitfields[2], workingbits) == UInt16(0x02f6)
+
+@test get(bitfields, workingbits)    == [ UInt16(0x15), UInt16(0x02f6) ]
+
+
+
+#                    span      shift          bits used
+bitfield1 = BitField(  8,            0);   #      8
+bitfield2 = BitField(  4,            8);   #     12
+bitfield3 = BitField( 12,          4+8);   #     24
+bitfield4 = BitField( 16,       12+4+8);   #     40
+bitfield5 = BitField( 20,    16+12+4+8);   #     60
+bitfield6 = BitField(  4, 20+16+12+4+8);   #     64
 
 bitfields = BitFields(bitfield1, bitfield2, bitfield3,
                       bitfield4, bitfield5, bitfield6);
-
-@test bitfield3 == bitfields[3]
-@test (bitfield4, bitfield5) == bitfields[4:5]
-
-try
-   BitField(UInt16, 7, 10)
-   @test false
-catch
-   @test true
-end
-
 
 valfield1 = 0xae;
 valfield2 = 0x06;
@@ -32,14 +45,14 @@ valfield4 = 0x3113;
 valfield5 = 0x7654;
 valfield6 = 0x03;
 
-target = Ref(zero(utype))
+target = Ref(zero(eltype(bitfields)));
 
-set!(bitfields[1], valfield1, target);
-set!(bitfields[2], valfield2, target);
-set!(bitfields[3], valfield3, target);
-set!(bitfields[4], valfield4, target);
-set!(bitfields[5], valfield5, target);
-set!(bitfields[6], valfield6, target);
+set!(bitfields[1], valfield1, target)
+set!(bitfields[2], valfield2, target)
+set!(bitfields[3], valfield3, target)
+set!(bitfields[4], valfield4, target)
+set!(bitfields[5], valfield5, target)
+set!(bitfields[6], valfield6, target)
 
 @test get(bitfield1, target) == valfield1
 @test get(bitfield2, target) == valfield2
@@ -48,7 +61,16 @@ set!(bitfields[6], valfield6, target);
 @test get(bitfield5, target) == valfield5
 @test get(bitfield6, target) == valfield6
 
-fields = get(bitfields, target);
+fields = get(bitfields, target)
+
+result = [ 0x00000000000000ae,
+           0x0000000000000006,
+           0x00000000000005f3,
+           0x0000000000003113,
+           0x0000000000007654,
+           0x0000000000000003 ]
+
+@test fields == result
 
 @test fields[1] == valfield1
 @test fields[2] == valfield2
