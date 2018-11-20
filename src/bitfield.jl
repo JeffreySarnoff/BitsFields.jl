@@ -1,28 +1,63 @@
+"""
+    BitCount
+
+type used to hold bit counts and shift amounts
+"""
 const BitCount = Int16
 
+"""
+    BitField
+
+The structured BitField.
+
+fields:
+    nbits
+    shift
+    maskof1s
+    maskof0s
+    symbol::MaybeSymbol
+"""
 struct BitField{U}
     nbits::BitCount
     shift::BitCount
     maskof1s::U
     maskof0s::U
+    symbol::MaybeSymbol
 end
 
 Base.eltype(::Type{BitField{U}}) where {U} = U
 Base.eltype(x::BitField{U}) where {U} = U
 
+symbol(x::BitField{U}) where {U<:UBits} = x.symbol
 
-function BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits}
+function BitField(::Type{U}, bitspan::Int, bitshift::Int, symbol::MaybeSymbol) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
     validate(U, span, shift)
 
     maskof1s = onebits(U, span, shift)
     maskof0s = ~maskof1s
-    return BitField{U}(span, shift, maskof1s, maskof0s)
+    return BitField{U}(span, shift, maskof1s, maskof0s, symbol)
 end
 
-BitField(bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift)
-        
+BitField(::Type{U}, symbol::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits} =
+    BitField(U, bitspan, bitshift, symbol)
+
+BitField(bitspan::Int, bitshift::Int, symbol::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, symbol)
+
+BitField(symbol::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, symbol)
+
+
+BitField(bitspan::Int, bitshift::Int, symbol::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, symbol)
+
+
+BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits} =
+    BitField(U, bitspan, bitshift, nothing)
+
+BitField(bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, nothing)
+
+
+
 @inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
     return source & bitfield.maskof1s
 end
