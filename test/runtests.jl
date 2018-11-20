@@ -78,3 +78,14 @@ result = [ 0x00000000000000ae,
 @test fields[4] == valfield4
 @test fields[5] == valfield5
 @test fields[6] == valfield6
+
+
+namedfields = NamedTuple(bitfields)
+
+@test namedfields.field1 == bitfields[1]
+@test namedfields.field2 == bitfields[2]
+@test namedfields.field3 == bitfields[3]
+@test namedfields.field4 == bitfields[4]
+@test namedfields.field5 == bitfields[5]
+@test namedfields.field6 == bitfields[6]
+
