@@ -7,8 +7,8 @@ field1shift =  0
 field2span  = 10
 field2shift = field1span
 
-field1 = BitField(UInt16, field1span, field1shift)
-field2 = BitField(UInt16, field2span, field2shift)
+field1 = BitField(UInt16, field1span, field1shift, :field1)
+field2 = BitField(UInt16, field2span, field2shift, :field2)
 
 bitfields = BitFields(field1, field2)
 
@@ -27,13 +27,13 @@ set!(bitfields[2], field2value, workingbits)
 
 
 
-#                    span      shift          bits used
-bitfield1 = BitField(  8,            0);   #      8
-bitfield2 = BitField(  4,            8);   #     12
-bitfield3 = BitField( 12,          4+8);   #     24
-bitfield4 = BitField( 16,       12+4+8);   #     40
-bitfield5 = BitField( 20,    16+12+4+8);   #     60
-bitfield6 = BitField(  4, 20+16+12+4+8);   #     64
+#                    span      shift      name         bits used
+bitfield1 = BitField(  8,            0, :field1);   #      8
+bitfield2 = BitField(  4,            8, :field2);   #     12
+bitfield3 = BitField( 12,          4+8, :field3);   #     24
+bitfield4 = BitField( 16,       12+4+8, :field4);   #     40
+bitfield5 = BitField( 20,    16+12+4+8, :field5);   #     60
+bitfield6 = BitField(  4, 20+16+12+4+8, :field6);   #     64
 
 bitfields = BitFields(bitfield1, bitfield2, bitfield3,
                       bitfield4, bitfield5, bitfield6);
