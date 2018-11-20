@@ -6,8 +6,11 @@ struct BitFields{N,U}    # N BitField{U} fields
    end
 end
 
-Base.length(x::BitFields{N,U}) where {N,U} =
-    length(x.bitfields)
+
+Base.eltype(::Type{BitFields{N,U}}) where {N,U} = U
+Base.eltype(x::BitFields{N,U}) where {N,U} = U
+
+Base.length(x::BitFields{N,U}) where {N,U} = N
 
 Base.lastindex(x::BitFields{N,U}) where {N,U} =
     lastindex(x.bitfields)
