@@ -67,46 +67,26 @@ UInt64 is used for this when there is no unsigned type specified.  So you do not
 ```julia
 using BitsFields
 
-#                    span      shift          bits used
-bitfield1 = BitField(  8,            0);   #      8
-bitfield2 = BitField(  4,            8);   #     12
-bitfield3 = BitField( 12,          4+8);   #     24
-bitfield4 = BitField( 16,       12+4+8);   #     40
-bitfield5 = BitField( 20,    16+12+4+8);   #     60
-bitfield6 = BitField(  4, 20+16+12+4+8);   #     64
+
+
+#                    span      shift      name         bits used
+bitfield1 = BitField(  8,            0, :field1);   #      8
+bitfield2 = BitField(  4,            8, :field2);   #     12
+bitfield3 = BitField( 12,          4+8, :field3);   #     24
+bitfield4 = BitField( 16,       12+4+8, :field4);   #     40
+bitfield5 = BitField( 20,    16+12+4+8, :field5);   #     60
+bitfield6 = BitField(  4, 20+16+12+4+8, :field6);   #     64
 
 bitfields = BitFields(bitfield1, bitfield2, bitfield3,
                       bitfield4, bitfield5, bitfield6);
 
-valfield1 = 0xae;
-valfield2 = 0x06;
-valfield3 = 0x05f3;
-valfield4 = 0x3113;
-valfield5 = 0x7654;
-valfield6 = 0x03;
+namedfields = NamedTuple(bitfields)
 
-target = Ref(zero(eltype(bitfields)));
-
-set!(bitfields[1], valfield1, target)
-set!(bitfields[2], valfield2, target)
-set!(bitfields[3], valfield3, target)
-set!(bitfields[4], valfield4, target)
-set!(bitfields[5], valfield5, target)
-set!(bitfields[6], valfield6, target)
-
-fields = get(bitfields, target)
-#=
-6-element Array{UInt64,1}:
- 0x00000000000000ae
- 0x0000000000000006
- 0x00000000000005f3
- 0x0000000000003113
- 0x0000000000007654
- 0x0000000000000003
-=#
-
-set!(bitfields[1], 0x12, target)
-get(bitfields[1], target)
-# 0x0000000000000012
+namedfields.field1 === bitfields[1]
+namedfields.field2 === bitfields[2]
+namedfields.field3 === bitfields[3]
+namedfields.field4 === bitfields[4]
+namedfields.field5 === bitfields[5]
+namedfields.field6 === bitfields[6]
 
 ```
