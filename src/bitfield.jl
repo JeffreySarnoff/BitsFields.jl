@@ -45,10 +45,7 @@ BitField(::Type{U}, symbol::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits
 
 BitField(bitspan::Int, bitshift::Int, symbol::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, symbol)
 
-BitField(symbol::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, symbol)
-
-
-BitField(bitspan::Int, bitshift::Int, symbol::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, symbol)
+BitField(symbol::MaybeSymbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, symbol)
 
 
 BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits} =
