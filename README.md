@@ -32,11 +32,11 @@ field2shift = field1span
 field1 = BitField(UInt16, field1span, field1shift)
 field2 = BitField(UInt16, field2span, field2shift)
 
-bitfields = BitFields(bitfield1, bitfield2)
+bitfields = BitFields(field1, field2)
 ```
 To use the `bitfields`, provide a referenceable, type-matched and zeroed carrier. 
 ```
-workingbits = Ref(zero(UInt16))
+workingbits = Ref(zero(eltype(bitfields)))
 ```
 Now we can set the fields and get their values.
 
