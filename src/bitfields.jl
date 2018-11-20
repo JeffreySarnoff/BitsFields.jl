@@ -41,10 +41,11 @@ Base.get(bitfields::BitFields{N,U}, bits::Ref{U}) where {N,U<:UBits} = [get(bitf
 Base.get(bitfields::BitFields{N,U}, bits::U) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
 
 symbol(bitfields::BitFields{N,U}) where {N,U<:UBits} = [symbol(bitfield) for bitfield in bitfields]
+symbols(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((symbol(bitfield) for bitfield in bitfields)...,)
 
 function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
-   symbols = symbol(bitfields)
-   fields  = [bitfields...,]
-   nt = NamedTuple{symbols,NTuple{N,BitField}}(fields)
+   names  = symbols(bitfields)
+   fields = [bitfields...,]
+   nt = NamedTuple{names,NTuple{N,BitField}}(fields)
    return nt
 end
