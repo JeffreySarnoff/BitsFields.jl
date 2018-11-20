@@ -30,7 +30,7 @@ Base.eltype(x::BitField{U}) where {U} = U
 
 symbol(x::BitField{U}) where {U<:UBits} = x.symbol
 
-function BitField(::Type{U}, bitspan::Int, bitshift::Int, symbol::Symbol) where {U<:UBits}
+function BitField(::Type{U}, bitspan::Int, bitshift::Int, symbol::MaybeSymbol) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
     validate(U, span, shift)
@@ -43,9 +43,12 @@ end
 BitField(::Type{U}, symbol::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits} =
     BitField(U, bitspan, bitshift, symbol)
 
-BitField(bitspan::Int, bitshift::Int, symbol::Symbol) = BitField(UInt64, bitspan, bitshift, symbol)
+BitField(bitspan::Int, bitshift::Int, symbol::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, symbol)
 
 BitField(symbol::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, symbol)
+
+
+BitField(bitspan::Int, bitshift::Int, symbol::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, symbol)
 
 
 BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits} =
