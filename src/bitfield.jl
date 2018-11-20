@@ -1,11 +1,28 @@
+"""
+    BitCount
+
+type used to hold bit counts and shift amounts
+"""
 const BitCount = Int16
 
+"""
+    BitField
+
+The structured BitField.
+
+fields:
+    nbits
+    shift
+    maskof1s
+    maskof0s
+    symbol::MaybeSymbol
+"""
 struct BitField{U}
     nbits::BitCount
     shift::BitCount
     maskof1s::U
     maskof0s::U
-    symbol::Symbol
+    symbol::MaybeSymbol
 end
 
 Base.eltype(::Type{BitField{U}}) where {U} = U
@@ -29,6 +46,12 @@ BitField(::Type{U}, symbol::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits
 BitField(bitspan::Int, bitshift::Int, symbol::Symbol) = BitField(UInt64, bitspan, bitshift, symbol)
 
 BitField(symbol::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, symbol)
+
+
+BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits} =
+    BitField(U, bitspan, bitshift, nothing)
+
+BitField(bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, nothing)
 
 
 
