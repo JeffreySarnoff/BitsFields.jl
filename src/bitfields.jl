@@ -37,7 +37,10 @@ function Base.iterate(x::BitFields{N,U}, state::Int) where {N,U<:UBits}
     end
 end
 
-Base.get(bitfields::BitFields{N,U}, source::U) where {N, U<:UBits} = get.(bitfields, source)
+#Base.get(bitfields::BitFields{N,U}, source::U) where {N, U<:UBits} = get.(bitfields, source)
 
-Base.get(bitfields::BitFields{N,U}, source::Base.RefValue{U}) where {N, U<:UBits} = get.(bitfields, source[])
+#Base.get(bitfields::BitFields{N,U}, source::Base.RefValue{U}) where {N, U<:UBits} = get.(bitfields, source[])
+
+Base.get(bitfields::BitFields{N,U}, bits::Ref{U}) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
+Base.get(bitfields::BitFields{N,U}, bits::U) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
 
