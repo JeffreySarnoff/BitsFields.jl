@@ -11,7 +11,7 @@ makedocs(
         "MultiFields"              => "multifields.md",
         "MultiFields, Named"       => "multifieldsnamed.md",
         "References"               => "references.md",
-        "Index"                    => "index.md",
+        "Index"                    => "documentindex.md",
         ]
     )
 
