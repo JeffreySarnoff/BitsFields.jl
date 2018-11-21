@@ -53,7 +53,9 @@ By how many bits is this field shifted?
    - how far is the least significant bit of the field
      from the least significant bit of all the fields
 
-
+To determine the number of bits over which a bitfield
+is shifted (from low-order bits to high-order bits),
+we count the empty bit positions that trail the bitfield.
 """
 fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    trailing_zeros(fieldmask(T))
