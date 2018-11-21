@@ -12,6 +12,7 @@ makedocs(
         "MultiFields"              => "multifields.md",
         "MultiFields, Named"       => "multifieldsnamed.md",
         "Worked Use"               => "workeduse.md",
+        "IEEE Standard 754-2008"   => "ieeestandard754-2008",
         "References"               => "references.md",
         "Index"                    => "documentindex.md",
         ]
