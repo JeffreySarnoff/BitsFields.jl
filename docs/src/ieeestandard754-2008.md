@@ -9,7 +9,7 @@ finite number, a signed infinity, a quiet NaN, or a signaling NaN. A representat
 three components: a sign, an exponent, and a significand; its numerical value is the signed product of its
 significand and its radix raised to the power of its exponent.
 
-![Standard Floating Point Specifications](https://github.com/JeffreySarnoff/BitsFields.jl/blob/master/docs/assets/IEEE754/table3_2.png)
+![Standard Floating Point Specifications](https://github.com/JeffreySarnoff/BitsFields.jl/blob/master/docs/assets/IEEE754/table3.2.png)
 
 
 
