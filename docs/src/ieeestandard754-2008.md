@@ -13,7 +13,7 @@ significand and its radix raised to the power of its exponent.
 
 
 This view of the significand as an integer c, with its corresponding exponent q, describes exactly the same
-set of zero and non-zero floating-point numbers as the view in scientific form.
+set of zero and non-zero floating-point numbers as the view in scientific form. [&sect;3.3]
 
 ### the sign
 > 
