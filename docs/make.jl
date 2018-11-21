@@ -10,6 +10,7 @@ makedocs(
         "The BitField, Named"      => "thebitfieldnamed.md",
         "MultiFields"              => "multifields.md",
         "MultiFields, Named"       => "multifieldsnamed.md",
+        "Worked Use"               => "workeduse.md",
         "References"               => "references.md",
         "Index"                    => "documentindex.md",
         ]
