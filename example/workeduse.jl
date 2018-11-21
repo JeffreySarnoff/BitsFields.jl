@@ -66,12 +66,23 @@ sign64 = BitField(UInt64, fieldspan(Float64, sign_mask), fieldshift(Float64, sig
 binaryexp64 = BitField(UInt64, fieldspan(Float64, exponent_mask), fieldshift(Float64, exponent_mask), :exponent)
 significand64  = BitField(UInt64, fieldspan(Float64, significand_mask), fieldshift(Float64, significand_mask), :significand)
 
+float64 = BitFields(sign64, binaryexp64, significand64)
 
 sign32 = BitField(UInt32, fieldspan(Float32, sign_mask), fieldshift(Float32, sign_mask), :sign)
 binaryexp32 = BitField(UInt32, fieldspan(Float32, exponent_mask), fieldshift(Float32, exponent_mask), :exponent)
 significand32  = BitField(UInt32, fieldspan(Float32, significand_mask), fieldshift(Float32, significand_mask), :significand)
 
+float32 = BitFields(sign32, binaryexp32, significand32)
 
+
+
+
+
+
+
+
+
+###################################################################
 
 
 UI = UInt64
