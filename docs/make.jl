@@ -4,8 +4,8 @@ makedocs(
     modules = [BitsFields],
     format = :html,
     sitename = "BitsFields",
-    author = "Jeffrey A Sarnoff"
-    pages    = Any[
+    authors  = "Jeffrey A Sarnoff",
+    pages  = Any[
         "Introduction"             => "index.md",
         "The BitField"             => "thebitfield.md",
         "The BitField, Named"      => "thebitfieldnamed.md",
