@@ -12,6 +12,8 @@ significand and its radix raised to the power of its exponent.
 ![Standard Floating Point Specifications](https://github.com/JeffreySarnoff/BitsFields.jl/blob/master/docs/assets/IEEE754/table3.2.png)
 
 
+This view of the significand as an integer c, with its corresponding exponent q, describes exactly the same
+set of zero and non-zero floating-point numbers as the view in scientific form.
 
 ### the sign
 > 
@@ -26,3 +28,5 @@ appropriate exponent offset. A decimal or subnormal binary significand can also 
 which the radix is raised in determining the value of that floating-point representation. The exponent e is
 used when the significand is regarded as an integer digit and fraction field, and the exponent q is used when
 the significand is regarded as an integer; e = q + p − 1 where p is the precision of the format in digits.
+
+
