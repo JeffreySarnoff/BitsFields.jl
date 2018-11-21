@@ -44,7 +44,7 @@ number of bits provided and given by the value_store.
  We stay within the information availablilty of Julia.)
 """ 
 fieldspan(::Type{T}, fieldmask) where {T<:IEEEFloat} =
-   bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(T))
+   bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(iT))
 
 """
     fieldshift
@@ -59,6 +59,19 @@ we count the empty bit positions that trail the bitfield.
 """
 fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    trailing_zeros(fieldmask(T))
+
+
+
+sign64 = BitField(UInt64, fieldspan(Float64, sign_mask), fieldshift(Float64, sign_mask), :sign)
+binaryexp64 = BitField(UInt64, fieldspan(Float64, exponent_mask), fieldshift(Float64, exponent_mask), :exponent)
+significand64  = BitField(UInt64, fieldspan(Float64, significand_mask), fieldshift(Float64, significand_mask), :significand)
+
+
+sign32 = BitField(UInt32, fieldspan(Float32, sign_mask), fieldshift(Float32, sign_mask), :sign)
+binaryexp32 = BitField(UInt32, fieldspan(Float32, exponent_mask), fieldshift(Float32, exponent_mask), :exponent)
+significand32  = BitField(UInt32, fieldspan(Float32, significand_mask), fieldshift(Float32, significand_mask), :significand)
+
+
 
 
 UI = UInt64
