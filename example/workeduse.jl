@@ -8,6 +8,22 @@ Base.unsigned(::Type{Float32}) = UInt32
 Base.unsigned(::Type{Float16}) = UInt16
 
 
+mutable struct FP{T,U}
+    floating::T
+    unsigned::U
+end
+
+value(x::FP{T,U}) where {T,U} = x.floating
+
+FP(x::T) where {T<:IEEEFloat} = FP{T,unsigned(T)}(x, reinterpret(unsigned(T), x))
+FP(x::U) where {U<:Unsigned}  = FP{float(U),U}(reinterpret(float(T), x), x)
+
+Base.show(io::IO, x::FP{T,U}) where {T,U} = show(io, value(x))
+
+Base.:(+)(x::T, fp::FP{T,U}) where {T,U} = x + value(fp)
+Base.:(+)(x::FP{T,U}, y::FP{T,U}) where {T,U} = FP(value(x) + value(y))
+
+
 
 
 """
@@ -59,22 +75,6 @@ function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat}
 end
 
 
-
-
-mutable struct FP{T,U}
-    floating::T
-    unsigned::U
-end
-
-value(x::FP{T,U}) where {T,U} = x.floating
-
-FP(x::T) where {T<:IEEEFloat} = FP{T,unsigned(T)}(x, reinterpret(unsigned(T), x))
-FP(x::U) where {U<:Unsigned}  = FP{float(U),U}(reinterpret(float(T), x), x)
-
-Base.show(io::IO, x::FP{T,U}) where {T,U} = show(io, value(x))
-
-Base.:(+)(x::T, fp::FP{T,U}) where {T,U} = x + value(fp)
-Base.:(+)(x::FP{T,U}, y::FP{T,U}) where {T,U} = FP(value(x) + value(y))
 
 
 
