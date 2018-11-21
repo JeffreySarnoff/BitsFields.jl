@@ -30,6 +30,18 @@ Base.:(+)(x::FP{T,U}, y::FP{T,U}) where {T,U} = FP(value(x) + value(y))
     fieldspan
 
 How many bits does this field span?
+
+The tally of 1-bits in the field's mask gives its span.
+All bits of a bitfield are adjacent to at least one other
+bit within the bitfield. Interior bits, if any (if the
+bitfield has a span of three or more), are adjacent to
+two bits within bitfield.
+
+To tally the 1-bits, we subtract any leading 0-bits
+and subtract any trailing 0-bits from the
+number of bits provided and given by the value_store.
+(This way, no reliance on tabulated values is needed.
+ We stay within the information availablilty of Julia.)
 """ 
 fieldspan(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(T))
@@ -40,6 +52,8 @@ fieldspan(::Type{T}, fieldmask) where {T<:IEEEFloat} =
 By how many bits is this field shifted?
    - how far is the least significant bit of the field
      from the least significant bit of all the fields
+
+
 """
 fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    trailing_zeros(fieldmask(T))
