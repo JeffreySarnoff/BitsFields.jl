@@ -1,5 +1,7 @@
 ## IEEE Standard 754-2008, and the 754-2018 revision
 
+[IEEE 754-2008 figure 3.1](https://github.com/JeffreySarnoff/BitsFields.jl/blob/master/docs/assets/IEEE754/IEEE754-2008_figure3.1.png)
+
 ### the representation
 > 2.1.26 floating-point representation: An unencoded member of a floating-point format, representing a
 finite number, a signed infinity, a quiet NaN, or a signaling NaN. A representation of a finite number has
