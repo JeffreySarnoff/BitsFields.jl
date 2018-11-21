@@ -64,11 +64,13 @@ fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
 UI = UInt64
 FP = float(UI) # Float64
 
-for (Field, Name, Mask) in ( (:signfield, :sign, :sign_mask), 
-                             (:exponentfield, :exponent, :exponent_mask), 
-                             (:significandfield, :significand, :significand_mask) )
-    @eval begin
-        $Field = BitField(UI, fieldspan(FP, $Mask), fieldshift(FP, $Mask), Symbol($Name))
+for N in (64, 32, 16)
+    for (Field, Name, Mask) in ( (:signfield, :sign, :sign_mask), 
+                                 (:exponentfield, :exponent, :exponent_mask), 
+                                 (:significandfield, :significand, :significand_mask) )
+        @eval begin
+            $Field$N = BitField(UInt$N, fieldspan(Float$N, $Mask), fieldshift(Float$N, $Mask), Symbol($Name))
+        end
     end
 end
 
