@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Introduction",
     "title": "BitsFields.jl",
     "category": "section",
-    "text": ""
+    "text": "abcd"
 },
 
 {
@@ -165,7 +165,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Index",
     "title": "Concepts and Functions",
     "category": "section",
-    "text": ""
+    "text": "defg"
 },
 
 ]}
