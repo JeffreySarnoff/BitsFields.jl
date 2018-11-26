@@ -36,7 +36,7 @@ bitfields = BitFields(field1, field2)
 ```
 To use the `bitfields`, provide a referenceable, type-matched and zeroed carrier. 
 ```
-workingbits = Ref(zero(eltype(bitfields)))
+workingbits = zero(bitfields)
 ```
 Now we can set the fields and get their values.
 
