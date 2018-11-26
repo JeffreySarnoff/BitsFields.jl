@@ -15,14 +15,14 @@ fields:
     shift
     maskof1s
     maskof0s
-    name::MaybeSymbol
+    name::Symbol
 """
-struct BitField{U}
+struct BitField{U} <: AbstractBitField
     nbits::BitCount
     shift::BitCount
     maskof1s::U
     maskof0s::U
-    name::MaybeSymbol
+    name::Symbol
 end
 
 Base.eltype(::Type{BitField{U}}) where {U} = U
@@ -36,7 +36,7 @@ maskof0s(x::BitField{U}) where {U<:UBits} = x.maskof0s
 
 
 
-function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::MaybeSymbol) where {U<:UBits}
+function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::Symbol) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
     validate(U, span, shift)
@@ -49,16 +49,9 @@ end
 BitField(::Type{U}, name::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits} =
     BitField(U, bitspan, bitshift, name)
 
-BitField(bitspan::Int, bitshift::Int, name::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, name)
+BitField(bitspan::Int, bitshift::Int, name::Symbol) = BitField(UInt64, bitspan, bitshift, name)
 
-BitField(name::MaybeSymbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
-
-
-BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits} =
-    BitField(U, bitspan, bitshift, nothing)
-
-BitField(bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, nothing)
-
+BitField(name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
 
 
 @inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
@@ -77,24 +70,40 @@ end
     return isolate(bitfield, source[]) >> bitfield.shift
 end
 
+@inline function Base.get(bitfield::BitField{U}, source::ByRef{U}) where {U<:UBits}
+    return isolate(bitfield, source.ref[]) >> bitfield.shift
+end
+
 @inline function put(bitfield::BitField{U}, value::U) where {U<:UBits}
     value << bitfield.shift
 end
 
-@inline function set(bitfield::BitField{U}, value::U, target::U)  where {U<:UBits}
-    filter(bitfield, target) | put(bitfield, value)
-end
-
-@inline function set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
-    target[] = set(bitfield, value, target[])
-    return nothing
-end
 
 set(bitfield::BitField{U}, value::UBits, target::U) where {U<:UBits} =
     set(bitfield, value%U, target)
 
 set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
     set!(bitfield, value%U, target)
+
+set!(bitfield::BitField{U}, value::UBits, target::ByRef{U})  where {U<:UBits} =
+    set!(bitfield, value%U, target)
+
+
+@inline function set(bitfield::BitField{U}, value::U, target::U)  where {U<:UBits}
+    return filter(bitfield, target) | put(bitfield, value)
+end
+
+@inline function set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
+    target[] = set(bitfield, value, target[])
+    return target
+end
+
+@inline function set!(bitfield::BitField{U}, value::U, target::ByRef{U})  where {U<:UBits}
+    target.ref[] = set(bitfield, value, target.ref[])
+    return target
+end
+
+
 
 
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}

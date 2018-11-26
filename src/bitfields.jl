@@ -1,4 +1,4 @@
-struct BitFields{N,U}    # N BitField{U} fields
+struct BitFields{N,U} <: AbstractBitFields  # N BitField{U} fields
    bitfields::NTuple{N,BitField{U}}
 
    function BitFields(bitfields::Vararg{BitField{U}, N}) where {N,U}
@@ -6,17 +6,6 @@ struct BitFields{N,U}    # N BitField{U} fields
    end
 end
 
-#=
-function BitsFields.BitFields(xs::NTuple{N,BitField}) where {N}
-  allnamed = all(map(x->(x.name !== nothing),xs))
-  bitfields = BitFields(xs...,)
-  if allnamed
-      return NamedTuple(bitfields)
-  else
-      return bitfields
-  end
-end
-=#
 
 Base.eltype(::Type{BitFields{N,U}}) where {N,U} = U
 Base.eltype(x::BitFields{N,U}) where {N,U} = U
@@ -56,10 +45,31 @@ names(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((name(bitfield) for bitfi
 
 function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    bitfieldnames  = names(bitfields)
-   if any(nothing .== bitfieldnames)
-      throw(ErrorException("attempt to create a NamedTuple with a missing name: ($bitfieldnames)"))
-   end
    values = ((bitfields)...,)
    nt = NamedTuple{bitfieldnames,NTuple{N,BitField}}(values)
    return nt
+end
+
+
+"""
+    valuesoffields
+
+obtain values assigned to fields of a struct type (in field order)
+<from NamedTupleTools>
+"""
+valuesoffields(x::T) where {T<:NamedTuple} =
+    ((getfield(x, name) for name in fieldnames(T))...,)
+
+Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::Ref{T}) where {S,N,T} =
+    NamedTuple{fieldnames(typeof(x))}(get.(valuesoffields(x), z[]))
+
+Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::ByRef{T}) where {S,N,T} =
+    NamedTuple{fieldnames(typeof(x))}(get.(valuesoffields(x), z.ref[]))
+
+function BitFields(bitfields::NamedTuple, nt::NamedTuple)
+    z = ByRef(eltype(bitfields[1]))
+    for (fld,val) in zip(bitfields, nt)
+        set!(fld, val, z)
+    end
+    return z
 end
