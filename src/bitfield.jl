@@ -74,14 +74,23 @@ end
     value << bitfield.shift
 end
 
+
+set(bitfield::BitField{U}, value::UBits, target::U) where {U<:UBits} =
+    set(bitfield, value%U, target)
+
+set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
+    set!(bitfield, value%U, target)
+
 @inline function set(bitfield::BitField{U}, value::U, target::U)  where {U<:UBits}
-    filter(bitfield, target) | put(bitfield, value)
+    return filter(bitfield, target) | put(bitfield, value)
 end
 
 @inline function set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
     target[] = set(bitfield, value, target[])
     return nothing
 end
+
+
 
 
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}
