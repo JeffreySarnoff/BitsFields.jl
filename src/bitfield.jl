@@ -83,12 +83,6 @@ end
     return nothing
 end
 
-set(bitfield::BitField{U}, value::UBits, target::U) where {U<:UBits} =
-    set(bitfield, value%U, target)
-
-set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
-    set!(bitfield, value%U, target)
-
 
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}
     if !(bitspan > 0 && bitspan + bitshift <= bitsof(U))
