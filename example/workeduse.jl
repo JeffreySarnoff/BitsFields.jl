@@ -1,7 +1,7 @@
-
 using Base: IEEEFloat, unsigned, sign_mask, exponent_mask, significand_mask
 
 using BitsFields
+using BitsFields: bitsof
 
 Base.unsigned(::Type{Float64}) = UInt64
 Base.unsigned(::Type{Float32}) = UInt32
