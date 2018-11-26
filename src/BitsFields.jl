@@ -2,19 +2,6 @@ module BitsFields
 
 export BitField, BitFields, set!
 
-"""
-    AbstractBitField{U}
-
-`U` is the unsigned type that "carries" the bit field.
-"""
-abstract type AbstractBitField{U} end
-
-"""
-    MaybeSymbol
-
-allow names, rather than require them
-"""
-const MaybeSymbol = Union{Nothing, Symbol}
 
 """
     UBits
