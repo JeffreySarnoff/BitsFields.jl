@@ -76,6 +76,21 @@ float32 = BitFields(sign32, binaryexp32, significand32)
 
 
 
+BitField(::Type{T}, maskfn::Function, name::Symbol) where {T<:IEEEFloat} =
+    BitField(unsigned(T), fieldspan(T, mask), fieldshift(T, mask), name)
+
+sign64 = BitField(Float64, sign_mask, :sign)
+binaryexp64 = BitField(Float64, exponent_mask, :exponent)
+significand64 = BitField(Float64, significand_mask, :significand)
+
+float64 = BitFields(sign64, binaryexp64, significand64)
+
+sign32 = BitField(Float32, sign_mask, :sign)
+binaryexp32 = BitField(Float32, exponent_mask, :exponent)
+significand32 = BitField(Float32, significand_mask, :significand)
+
+float32 = BitFields(sign32, binaryexp32, significand32)
+
 
 
 
