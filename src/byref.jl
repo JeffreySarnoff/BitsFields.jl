@@ -17,13 +17,13 @@ end
 @inline value(x::ByRef{T}) where {T} = x.value
 @inline val(x::ByRef{T}) where {T} = x.value[]
 
-Base.show(io::IO, x::ByRef{T}) where {T} = show(io, val(x))
+Base.show(io::IO, x::ByRef{T}) where {T} = show(io, x.value[])
 
-function set!(x::ByRef{T}, val::T) where {T} 
-    x.value[] = val
+function set!(x::ByRef{T}, value::T) where {T} 
+    x.value[] = value
     return x
 end
 
-Base.get(x::ByRef{T}) where {T} = val(x)
+Base.get(x::ByRef{T}) where {T} = x.value[]
 
-Base.zero(x::ByRef{T}) where {T} = set(x, zero(T))
+Base.zero(x::ByRef{T}) where {T} = set!(x, zero(T))
