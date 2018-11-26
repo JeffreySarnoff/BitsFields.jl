@@ -92,7 +92,7 @@ set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:U
 
 
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}
-    if !(bitspan > 0 && bitspan + bitshift <= bitsizeof(U))
+    if !(bitspan > 0 && bitspan + bitshift <= bitsof(U))
         if bitspan <= 0
             throw(ErrorException("bitspan ($bitspan) must be > 0"))
         else
@@ -102,8 +102,6 @@ function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBit
     return nothing
 end
 
-
-bitsizeof(::Type{T}) where {T} = sizeof(T) * 8
 
 onebits(::Type{T}, bitspan::I, bitshift::I) where {T<:UBits, I<:Integer} =
     ~(~zero(T) << bitspan) << bitshift
