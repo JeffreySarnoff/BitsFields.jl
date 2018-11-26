@@ -104,7 +104,7 @@ float64bits = BitFields(signfield64, exponentfield64, significandfield64)
 
 float64 = NamedTuple(float64bits);
 
-function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat}
+function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat,U}
     originalexponent = get(exponent(T), UNSIGNED(x))
     # check for potential overflow
     if originalexponent === exponentfield.ones
