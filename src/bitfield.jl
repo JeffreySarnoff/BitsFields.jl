@@ -99,7 +99,7 @@ end
 end
 
 @inline function set!(bitfield::BitField{U}, value::U, target::ByRef{U})  where {U<:UBits}
-    target.value[] = set(bitfield, value, target.value[])
+    target.ref[] = set(bitfield, value, target.ref[])
     return target
 end
 
