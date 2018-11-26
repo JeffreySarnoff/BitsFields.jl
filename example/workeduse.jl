@@ -63,16 +63,16 @@ fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
 
 
 sign64 = BitField(UInt64, fieldspan(Float64, sign_mask), fieldshift(Float64, sign_mask), :sign)
-binaryexp64 = BitField(UInt64, fieldspan(Float64, exponent_mask), fieldshift(Float64, exponent_mask), :exponent)
+exponent64 = BitField(UInt64, fieldspan(Float64, exponent_mask), fieldshift(Float64, exponent_mask), :exponent)
 significand64  = BitField(UInt64, fieldspan(Float64, significand_mask), fieldshift(Float64, significand_mask), :significand)
 
-float64 = BitFields(sign64, binaryexp64, significand64)
+float64 = BitFields(sign64, exponent64, significand64)
 
 sign32 = BitField(UInt32, fieldspan(Float32, sign_mask), fieldshift(Float32, sign_mask), :sign)
-binaryexp32 = BitField(UInt32, fieldspan(Float32, exponent_mask), fieldshift(Float32, exponent_mask), :exponent)
+exponent32 = BitField(UInt32, fieldspan(Float32, exponent_mask), fieldshift(Float32, exponent_mask), :exponent)
 significand32  = BitField(UInt32, fieldspan(Float32, significand_mask), fieldshift(Float32, significand_mask), :significand)
 
-float32 = BitFields(sign32, binaryexp32, significand32)
+float32 = BitFields(sign32, exponent32, significand32)
 
 
 
@@ -80,16 +80,16 @@ BitField(::Type{T}, maskfn::Function, name::Symbol) where {T<:IEEEFloat} =
     BitField(unsigned(T), fieldspan(T, mask), fieldshift(T, mask), name)
 
 sign64 = BitField(Float64, sign_mask, :sign)
-binaryexp64 = BitField(Float64, exponent_mask, :exponent)
+exponent64 = BitField(Float64, exponent_mask, :exponent)
 significand64 = BitField(Float64, significand_mask, :significand)
 
-float64 = BitFields(sign64, binaryexp64, significand64)
+float64 = BitFields(sign64, exponent64, significand64)
 
 sign32 = BitField(Float32, sign_mask, :sign)
-binaryexp32 = BitField(Float32, exponent_mask, :exponent)
+exponent32 = BitField(Float32, exponent_mask, :exponent)
 significand32 = BitField(Float32, significand_mask, :significand)
 
-float32 = BitFields(sign32, binaryexp32, significand32)
+float32 = BitFields(sign32, exponent32, significand32)
 
 
 
@@ -115,9 +115,10 @@ for N in (64, 32, 16)
 end
 
 
-float64bits = BitFields(signfield64, exponentfield64, significandfield64)
+float64 = NamedTuple(BitFields(sign64, exponent64, significand64))
+float32 = NamedTuple(BitFields(sign32, exponent32, significand32))
+float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
 
-float64 = NamedTuple(float64bits);
 
 function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat,U}
     originalexponent = get(exponent(T), UNSIGNED(x))
