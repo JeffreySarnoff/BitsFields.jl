@@ -21,7 +21,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Overview",
     "title": "Overview",
     "category": "section",
-    "text": "This package facilitates the use of bit fields.  It is written entirely in Julia and released under the MIT License.The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
+    "text": "This package facilitates the use of bit fields.  It is written entirely in Julia and released under the MIT License."
+},
+
+{
+    "location": "#Terminology-1",
+    "page": "Overview",
+    "title": "Terminology",
+    "category": "section",
+    "text": "A bit field is a contiguous sequence of one or more bits within a carrier type (the substrate).A single bit field is field that has exactly two states: {0b0, 0b1}. The span of a single bit field is one bit.\nA multibit field is a field that spans two or more adjacent bits.\nAn n⚬bit field is a multibit field that spans n bits.or more   The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
 },
 
 {
