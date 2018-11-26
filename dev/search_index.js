@@ -13,7 +13,15 @@ var documenterSearchIndex = {"docs": [
     "page": "Overview",
     "title": "BitsFields.jl",
     "category": "section",
-    "text": "abcd"
+    "text": ""
+},
+
+{
+    "location": "#Overview-1",
+    "page": "Overview",
+    "title": "Overview",
+    "category": "section",
+    "text": "i This package facilitates the use of bit fields.  It is written entirely in Julia and released under the MIT License.The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
 },
 
 {
