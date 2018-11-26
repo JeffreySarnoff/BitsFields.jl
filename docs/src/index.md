@@ -12,7 +12,11 @@ A `bit field` is a contiguous sequence of one or more bits within a `carrier` ty
 - A `multibit field` is a field that spans two or more adjacent bits.
 - An `n⚬bit field` is a multibit field that spans `n` bits.
 
-or more  
+A `bit multifield` is a collection of one or more `bit fields` within a shared `carrier` type (the substrate).
+
+The bit fields that compose a bit multifield may or may not be mutually contiguous (there is no requirement that the substrate is completely allocated to the constituent bit fields, nor that any specific bit be allocated).
+
+
 [__The BitField__](thebitfield.md)
 
 [__The BitMultiField__](multifields.md)
