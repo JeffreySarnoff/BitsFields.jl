@@ -50,9 +50,19 @@ function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    return nt
 end
 
+
+"""
+    valuesoffields
+
+obtain values assigned to fields of a struct type (in field order)
+<from NamedTupleTools>
+"""
+valuesoffields(x::T) where {T<:NamedTuple} =
+    ((getfield(x, name) for name in fieldnames(T))...,)
+
 Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::Ref{T}) where {S,N,T} =
-    NamedTuple{fieldnames(typeof(x))}(get.(fieldvalues(x), z[]))
+    NamedTuple{fieldnames(typeof(x))}(get.(valuesoffields(x), z[]))
 
 Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::ByRef{T}) where {S,N,T} =
-    NamedTuple{fieldnames(typeof(x))}(get.(fieldvalues(x), z.ref[]))
+    NamedTuple{fieldnames(typeof(x))}(get.(valuesoffields(x), z.ref[]))
 
