@@ -2,9 +2,7 @@ using Documenter, BitsFields
 
 makedocs(
     modules = [BitsFields],
-    format = :html,
     sitename = "BitsFields",
-    authors  = "Jeffrey A Sarnoff",
     pages  = Any[
         "Introduction"             => "index.md",
         "The BitField"             => "thebitfield.md",
@@ -14,15 +12,11 @@ makedocs(
         "Worked Use"               => "workeduse.md",
         "IEEE Standard 754-2008"   => "ieeestandard754-2008.md",
         "References"               => "references.md",
-        "Index"                    => "documentindex.md",
+        "Index"                    => "documentindex.md"
         ]
     )
 
 deploydocs(
     repo = "github.com/JeffreySarnoff/BitsFields.jl.git",
     target = "build",
-    julia  = "1.0",
-    osname = "linux",
-    deps = nothing,
-    make = nothing
 )
