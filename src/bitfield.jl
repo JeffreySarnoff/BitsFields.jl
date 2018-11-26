@@ -29,6 +29,12 @@ Base.eltype(::Type{BitField{U}}) where {U} = U
 Base.eltype(x::BitField{U}) where {U} = U
 
 name(x::BitField{U}) where {U<:UBits} = x.name
+nbits(x::BitField{U}) where {U<:UBits} = x.nbits
+shift(x::BitField{U}) where {U<:UBits} = x.shift
+maskof1s(x::BitField{U}) where {U<:UBits} = x.maskof1s
+maskof0s(x::BitField{U}) where {U<:UBits} = x.maskof0s
+
+
 
 function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::MaybeSymbol) where {U<:UBits}
     span  = BitCount(bitspan)
