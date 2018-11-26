@@ -71,7 +71,7 @@ end
 end
 
 @inline function Base.get(bitfield::BitField{U}, source::ByRef{U}) where {U<:UBits}
-    return isolate(bitfield, source.value[]) >> bitfield.shift
+    return isolate(bitfield, source.ref[]) >> bitfield.shift
 end
 
 @inline function put(bitfield::BitField{U}, value::U) where {U<:UBits}
