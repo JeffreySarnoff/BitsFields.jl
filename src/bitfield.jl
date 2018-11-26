@@ -78,7 +78,7 @@ end
     filter(bitfield, target) | put(bitfield, value)
 end
 
-@inline function Base.set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
+@inline function set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
     target[] = set(bitfield, value, target[])
     return nothing
 end
@@ -86,7 +86,7 @@ end
 set(bitfield::BitField{U}, value::UBits, target::U) where {U<:UBits} =
     set(bitfield, value%U, target)
 
-Base.set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
+set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
     set!(bitfield, value%U, target)
 
 
