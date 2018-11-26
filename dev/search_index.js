@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "The BitField",
     "title": "The BitField",
     "category": "section",
-    "text": ""
+    "text": "abcd"
 },
 
 {
@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "The BitField, Named",
     "title": "The BitField, Named",
     "category": "section",
-    "text": ""
+    "text": "abcd"
 },
 
 {
@@ -61,7 +61,7 @@ var documenterSearchIndex = {"docs": [
     "page": "MultiFields",
     "title": "MultiFields",
     "category": "section",
-    "text": ""
+    "text": "abcd"
 },
 
 {
@@ -77,7 +77,7 @@ var documenterSearchIndex = {"docs": [
     "page": "MultiFields, Named",
     "title": "MultiFields, Named",
     "category": "section",
-    "text": ""
+    "text": "abcd"
 },
 
 {
@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "References",
     "title": "References",
     "category": "section",
-    "text": ""
+    "text": "abcd"
 },
 
 {
