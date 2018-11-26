@@ -109,6 +109,7 @@ float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
 # #################################
 
 
+#=
 mutable struct FP{T,U}
     floating::RefT
     unsigned::U
@@ -162,4 +163,4 @@ set!(float64.exponent,
 
 reinterpret(Float64,fpvalue[])
 1.414213562373095
-
+=#
