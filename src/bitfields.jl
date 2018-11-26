@@ -66,3 +66,10 @@ Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::Ref{T}) where {S,N,T} =
 Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::ByRef{T}) where {S,N,T} =
     NamedTuple{fieldnames(typeof(x))}(get.(valuesoffields(x), z.ref[]))
 
+function BitFields(bitfields::NamedTuple, nt::NamedTuple)
+    z = ByRef(eltype(bitfields[1]))
+    for (fld,val) in zip(bitfields, nt)
+        set!(fld, val, z)
+    end
+    return z
+end
