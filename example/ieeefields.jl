@@ -3,28 +3,6 @@ using Base: IEEEFloat, unsigned, sign_mask, exponent_mask, significand_mask
 using BitsFields
 using BitsFields: bitsof
 
-Base.unsigned(::Type{Float64}) = UInt64
-Base.unsigned(::Type{Float32}) = UInt32
-Base.unsigned(::Type{Float16}) = UInt16
-
-
-mutable struct FP{T,U}
-    floating::T
-    unsigned::U
-end
-
-value(x::FP{T,U}) where {T,U} = x.floating
-
-FP(x::T) where {T<:IEEEFloat} = FP{T,unsigned(T)}(x, reinterpret(unsigned(T), x))
-FP(x::U) where {U<:Unsigned}  = FP{float(U),U}(reinterpret(float(T), x), x)
-
-Base.show(io::IO, x::FP{T,U}) where {T,U} = show(io, value(x))
-
-Base.:(+)(x::T, fp::FP{T,U}) where {T,U} = x + value(fp)
-Base.:(+)(x::FP{T,U}, y::FP{T,U}) where {T,U} = FP(value(x) + value(y))
-
-
-
 
 """
     fieldspan
@@ -61,6 +39,8 @@ fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    trailing_zeros(fieldmask(T))
 
 
+#=
+# generating the bitfields for a Float64, and a Float32, the direct way
 
 sign64 = BitField(UInt64, fieldspan(Float64, sign_mask), fieldshift(Float64, sign_mask), :sign)
 exponent64 = BitField(UInt64, fieldspan(Float64, exponent_mask), fieldshift(Float64, exponent_mask), :exponent)
@@ -73,7 +53,14 @@ exponent32 = BitField(UInt32, fieldspan(Float32, exponent_mask), fieldshift(Floa
 significand32  = BitField(UInt32, fieldspan(Float32, significand_mask), fieldshift(Float32, significand_mask), :significand)
 
 float32 = BitFields(sign32, exponent32, significand32)
+=#
 
+#=
+# generating the bitfields for a Float64 and a Float32, a more compact way
+
+Base.unsigned(::Type{Float64}) = UInt64
+Base.unsigned(::Type{Float32}) = UInt32
+Base.unsigned(::Type{Float16}) = UInt16
 
 
 BitField(::Type{T}, mask::Function, name::Symbol) where {T<:IEEEFloat} =
@@ -90,11 +77,7 @@ exponent32 = BitField(Float32, exponent_mask, :exponent)
 significand32 = BitField(Float32, significand_mask, :significand)
 
 float32 = BitFields(sign32, exponent32, significand32)
-
-
-
-
-
+=#
 
 
 ###################################################################
@@ -118,6 +101,42 @@ end
 float64 = NamedTuple(BitFields(sign64, exponent64, significand64))
 float32 = NamedTuple(BitFields(sign32, exponent32, significand32))
 float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
+
+
+
+# #################################
+# Using the bitfields defined above
+# #################################
+
+
+mutable struct FP{T,U}
+    floating::RefT
+    unsigned::U
+end
+
+value(x::FP{T,U}) where {T,U} = x.floating
+
+FP(x::T) where {T<:IEEEFloat} = FP{T,unsigned(T)}(x, reinterpret(unsigned(T), x))
+FP(x::U) where {U<:Unsigned}  = FP{float(U),U}(reinterpret(float(T), x), x)
+
+
+struct FP{T<:IEEEFloat}
+    value::Ref{T}
+end
+
+@inline value(x::FP{T}) where {T<:IEEEFloat} = getfield(x, :value)[]
+
+function Base.setproperty!(x::FP{T}, s::Symbol, v::T) where {T<:IEEEFloat}
+    s === :value && return x.value[] = v
+    throw(ErrorException("No such field ($s)"))
+end
+
+function Base.getproperty(x::FPR, s::Symbol)
+    s === :value && return value(x)
+    throw(ErrorException("No such field ($s)"))
+end
+
+Base.show(io::IO, x::FP{T,U}) where {T,U} = show(io, value(x))
 
 
 function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat,U}
