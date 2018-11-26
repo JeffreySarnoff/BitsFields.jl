@@ -1,6 +1,6 @@
 module BitsFields
 
-export BitField, BitFields, set!
+export BitField, BitFields, ByRef, set!
 
 abstract type AbstractBitField  end
 abstract type AbstractBitFields end
@@ -22,7 +22,7 @@ bitsof(::Type{T}) where {T} = sizeof(T) * 8
 
 include("bitfield.jl")
 include("bitfields.jl")
-include("reftype.jl")
+include("byref.jl")
 
 Base.zero(bitfield::BitField{U}) where {U<:UBits} = zero(U)
 Base.zero(bitfields::BitFields{N,U}) where {N, U<:UBits} = Ref(zero(eltype(bitfields[1])))
