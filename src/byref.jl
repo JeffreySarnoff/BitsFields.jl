@@ -15,7 +15,7 @@ end
 
 Base.show(io::IO, x::ByRef{T}) where {T} = show(io, val(x))
 
-function set(x::ByRef{T}, val::T) where {T} 
+function set!(x::ByRef{T}, val::T) where {T} 
     x.value[] = val
     return x
 end
