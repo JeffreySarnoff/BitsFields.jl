@@ -29,7 +29,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Overview",
     "title": "Terminology",
     "category": "section",
-    "text": "A bit field is a contiguous sequence of one or more bits within a carrier type (the substrate).A single bit field is field that has exactly two states: {0b0, 0b1}. The span of a single bit field is one bit.\nA multibit field is a field that spans two or more adjacent bits.\nAn n⚬bit field is a multibit field that spans n bits.or more   The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
+    "text": "A bit field is a contiguous sequence of one or more bits within a carrier type (the substrate).A single bit field is field that has exactly two states: {0b0, 0b1}. The span of a single bit field is one bit.\nA multibit field is a field that spans two or more adjacent bits.\nAn n⚬bit field is a multibit field that spans n bits.A bit multifield is a collection of one or more bit fields within a shared carrier type (the substrate).The bit fields that compose a bit multifield may or may not be mutually contiguous (there is no requirement that the substrate is completely allocated to the constituent bit fields, nor that any specific bit be allocated).The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
 },
 
 {
