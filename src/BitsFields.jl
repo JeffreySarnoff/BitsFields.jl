@@ -22,6 +22,7 @@ bitsof(::Type{T}) where {T} = sizeof(T) * 8
 
 include("bitfield.jl")
 include("bitfields.jl")
+include("reftype.jl")
 
 Base.zero(bitfield::BitField{U}) where {U<:UBits} = zero(U)
 Base.zero(bitfields::BitFields{N,U}) where {N, U<:UBits} = Ref(zero(eltype(bitfields[1])))
