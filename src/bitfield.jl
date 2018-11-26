@@ -15,7 +15,7 @@ fields:
     shift
     maskof1s
     maskof0s
-    symbol::MaybeSymbol
+    name::MaybeSymbol
 """
 struct BitField{U}
     nbits::BitCount
