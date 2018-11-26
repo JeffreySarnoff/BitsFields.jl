@@ -42,7 +42,7 @@ Base.get(bitfields::BitFields{N,U}, bits::U) where {N,U<:UBits} = [get(bitfield,
 
 symbol(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((symbol(bitfield) for bitfield in bitfields)...,)
 
-function NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
+function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    names  = symbol(bitfields)
    if any(nothing .== names)
       throw(ErrorException("attempt to create a NamedTuple with a missing name: ($names)"))
