@@ -12,7 +12,7 @@ field2 = BitField(UInt16, field2span, field2shift, :field2)
 
 bitfields = BitFields(field1, field2)
 
-workingbits = Ref(zero(eltype(bitfields)))
+workingbits = zero(bitfields)
 
 
 field1value = 0x15
@@ -45,7 +45,7 @@ valfield4 = 0x3113;
 valfield5 = 0x7654;
 valfield6 = 0x03;
 
-target = Ref(zero(eltype(bitfields)));
+target = zero(bitfields)
 
 set!(bitfields[1], valfield1, target)
 set!(bitfields[2], valfield2, target)
