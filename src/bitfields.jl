@@ -49,3 +49,10 @@ function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    nt = NamedTuple{bitfieldnames,NTuple{N,BitField}}(values)
    return nt
 end
+
+Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::Ref{T}) where {S,N,T} =
+    NamedTuple{fieldnames(typeof(x))}(get.(fieldvalues(x), z[]))
+
+Base.NamedTuple(x::NamedTuple{S,NTuple{N,BitField}}, z::ByRef{T}) where {S,N,T} =
+    NamedTuple{fieldnames(typeof(x))}(get.(fieldvalues(x), z.ref[]))
+
