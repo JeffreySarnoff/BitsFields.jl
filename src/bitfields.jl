@@ -6,6 +6,17 @@ struct BitFields{N,U}    # N BitField{U} fields
    end
 end
 
+#=
+function BitsFields.BitFields(xs::NTuple{N,BitField}) where {N}
+  allnamed = all(map(x->(x.symbol !== nothing),xs))
+  bitfields = BitFields(xs...,)
+  if allnamed
+      return NamedTuple(bitfields)
+  else
+      return bitfields
+  end
+end
+=#
 
 Base.eltype(::Type{BitFields{N,U}}) where {N,U} = U
 Base.eltype(x::BitFields{N,U}) where {N,U} = U
