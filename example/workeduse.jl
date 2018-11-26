@@ -76,7 +76,7 @@ float32 = BitFields(sign32, exponent32, significand32)
 
 
 
-BitField(::Type{T}, maskfn::Function, name::Symbol) where {T<:IEEEFloat} =
+BitField(::Type{T}, mask::Function, name::Symbol) where {T<:IEEEFloat} =
     BitField(unsigned(T), fieldspan(T, mask), fieldshift(T, mask), name)
 
 sign64 = BitField(Float64, sign_mask, :sign)
