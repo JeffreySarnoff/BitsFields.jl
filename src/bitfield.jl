@@ -15,14 +15,14 @@ fields:
     shift
     maskof1s
     maskof0s
-    name::MaybeSymbol
+    name::Symbol
 """
 struct BitField{U}
     nbits::BitCount
     shift::BitCount
     maskof1s::U
     maskof0s::U
-    name::MaybeSymbol
+    name::Symbol
 end
 
 Base.eltype(::Type{BitField{U}}) where {U} = U
@@ -36,7 +36,7 @@ maskof0s(x::BitField{U}) where {U<:UBits} = x.maskof0s
 
 
 
-function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::MaybeSymbol) where {U<:UBits}
+function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::Symbol) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
     validate(U, span, shift)
@@ -49,16 +49,9 @@ end
 BitField(::Type{U}, name::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits} =
     BitField(U, bitspan, bitshift, name)
 
-BitField(bitspan::Int, bitshift::Int, name::MaybeSymbol) = BitField(UInt64, bitspan, bitshift, name)
+BitField(bitspan::Int, bitshift::Int, name::Symbol) = BitField(UInt64, bitspan, bitshift, name)
 
-BitField(name::MaybeSymbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
-
-
-BitField(::Type{U}, bitspan::Int, bitshift::Int) where {U<:UBits} =
-    BitField(U, bitspan, bitshift, nothing)
-
-BitField(bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, nothing)
-
+BitField(name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
 
 
 @inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
