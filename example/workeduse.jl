@@ -84,21 +84,23 @@ float32 = BitFields(sign32, binaryexp32, significand32)
 
 ###################################################################
 
-
-UI = UInt64
-FP = float(UI) # Float64
-
 for N in (64, 32, 16)
-    for (Field, Name, Mask) in ( (:signfield, :sign, :sign_mask), 
-                                 (:exponentfield, :exponent, :exponent_mask), 
-                                 (:significandfield, :significand, :significand_mask) )
-        @eval begin
-            $Field$N = BitField(UInt$N, fieldspan(Float$N, $Mask), fieldshift(Float$N, $Mask), Symbol($Name))
-        end
+  for (Field, Name, Mask) in ( (:signfield, :sign, :sign_mask), 
+                               (:exponentfield, :exponent, :exponent_mask), 
+                               (:significandfield, :significand, :significand_mask) )
+    @eval begin
+      float_type = $(Symbol(:Float,N))
+      uint_type  = $(Symbol(:UInt,N))
+      $(Symbol(Field,N)) = BitField(uint_type,
+                                    fieldspan(float_type, $Mask), 
+                                    fieldshift(float_type, $Mask), 
+                                    Symbol($Name))
     end
+  end
 end
 
-float64bits = BitFields(signfield, exponentfield, significandfield)
+
+float64bits = BitFields(signfield64, exponentfield64, significandfield64)
 
 float64 = NamedTuple(float64bits);
 
@@ -115,9 +117,6 @@ function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat}
     
     return x
 end
-
-
-
 
 
 fpvalue = Ref(reinterpret(UInt64, inv(sqrt(Float64(2.0)))))
