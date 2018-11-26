@@ -8,7 +8,7 @@ end
 
 #=
 function BitsFields.BitFields(xs::NTuple{N,BitField}) where {N}
-  allnamed = all(map(x->(x.symbol !== nothing),xs))
+  allnamed = all(map(x->(x.name !== nothing),xs))
   bitfields = BitFields(xs...,)
   if allnamed
       return NamedTuple(bitfields)
@@ -51,11 +51,11 @@ end
 Base.get(bitfields::BitFields{N,U}, bits::Ref{U}) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
 Base.get(bitfields::BitFields{N,U}, bits::U) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
 
-symbol(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((symbol(bitfield) for bitfield in bitfields)...,)
+names(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((names(bitfield) for bitfield in bitfields)...,)
 
 function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
-   names  = symbol(bitfields)
-   if any(nothing .== names)
+   bitfieldnames  = names(bitfields)
+   if any(nothing .== bitfieldnames)
       throw(ErrorException("attempt to create a NamedTuple with a missing name: ($names)"))
    end
    values = ((bitfields)...,)
