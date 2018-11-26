@@ -1,4 +1,3 @@
-
 using Documenter, BitsFields
 
 makedocs(
@@ -10,8 +9,8 @@ makedocs(
         "The BitField, Named"      => "thebitfieldnamed.md",
         "MultiFields"              => "multifields.md",
         "MultiFields, Named"       => "multifieldsnamed.md",
-        "Worked Use"               => "workeduse.md",
         "IEEE Standard 754-2008"   => "ieeestandard754-2008.md",
+        "Worked Use"               => "workeduse.md",
         "References"               => "references.md",
         "Index"                    => "documentindex.md"
         ]
