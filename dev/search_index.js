@@ -81,14 +81,6 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "workeduse/#",
-    "page": "Worked Use",
-    "title": "Worked Use",
-    "category": "page",
-    "text": "(Image: IEEE754 Floating Point Standard)"
-},
-
-{
     "location": "ieeestandard754-2008/#",
     "page": "IEEE Standard 754-2008",
     "title": "IEEE Standard 754-2008",
@@ -134,6 +126,14 @@ var documenterSearchIndex = {"docs": [
     "title": "the exponent",
     "category": "section",
     "text": "2.1.19 exponent: The component of a finite floating-point representation that signifies the integer power towhich the radix is raised in determining the value of that floating-point representation. The exponent e is used when the significand is regarded as an integer digit and fraction field, and the exponent q is used when the significand is regarded as an integer; e = q + p − 1 where p is the precision of the format in digits."
+},
+
+{
+    "location": "workeduse/#",
+    "page": "Worked Use",
+    "title": "Worked Use",
+    "category": "page",
+    "text": "(Image: IEEE754 Floating Point Standard)"
 },
 
 {
