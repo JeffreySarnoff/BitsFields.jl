@@ -100,16 +100,16 @@ float32 = BitFields(sign32, exponent32, significand32)
 ###################################################################
 
 for N in (64, 32, 16)
-  for (Field, Name, Mask) in ( (:signfield, :sign, :sign_mask), 
-                               (:exponentfield, :exponent, :exponent_mask), 
-                               (:significandfield, :significand, :significand_mask) )
+  for (Field, Mask) in ( (:sign, :sign_mask), 
+                         (:exponent, :exponent_mask), 
+                         (:significand, :significand_mask) )
     @eval begin
       float_type = $(Symbol(:Float,N))
       uint_type  = $(Symbol(:UInt,N))
       $(Symbol(Field,N)) = BitField(uint_type,
                                     fieldspan(float_type, $Mask), 
                                     fieldshift(float_type, $Mask), 
-                                    Symbol($Name))
+                                    Symbol($Field))
     end
   end
 end
