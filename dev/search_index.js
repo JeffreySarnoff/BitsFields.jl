@@ -21,7 +21,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Overview",
     "title": "Overview",
     "category": "section",
-    "text": "i This package facilitates the use of bit fields.  It is written entirely in Julia and released under the MIT License.The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
+    "text": "This package facilitates the use of bit fields.  It is written entirely in Julia and released under the MIT License.The BitFieldThe BitMultiFieldIEEE Standard Floating Point fieldsWorked Example: Float32 bitfieldsReferences"
 },
 
 {
