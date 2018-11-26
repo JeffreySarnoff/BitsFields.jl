@@ -26,7 +26,6 @@ end
 
 Base.get(x::ByRef{T}) where {T} = x.ref[]
 
-
 Base.zero(::Type{ByRef{T}}) where {T} = ByRef(T)
 
 Base.zero(x::ByRef{T}) where {T} = set!(x, zero(T))
