@@ -2,15 +2,15 @@ var documenterSearchIndex = {"docs": [
 
 {
     "location": "#",
-    "page": "Introduction",
-    "title": "Introduction",
+    "page": "Overview",
+    "title": "Overview",
     "category": "page",
     "text": ""
 },
 
 {
     "location": "#BitsFields.jl-1",
-    "page": "Introduction",
+    "page": "Overview",
     "title": "BitsFields.jl",
     "category": "section",
     "text": "abcd"
