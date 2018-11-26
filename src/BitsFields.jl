@@ -2,7 +2,12 @@ module BitsFields
 
 export BitField, BitFields, set!
 
-abstract type AbstractBitField end
+"""
+    AbstractBitField{U}
+
+`U` is the unsigned type that "carries" the bit field.
+"""
+abstract type AbstractBitField{U} end
 
 """
     MaybeSymbol
