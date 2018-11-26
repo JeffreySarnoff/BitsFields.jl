@@ -44,7 +44,7 @@ number of bits provided and given by the value_store.
  We stay within the information availablilty of Julia.)
 """ 
 fieldspan(::Type{T}, fieldmask) where {T<:IEEEFloat} =
-   bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(iT))
+   bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(i\T))
 
 """
     fieldshift
