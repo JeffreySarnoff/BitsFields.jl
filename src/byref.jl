@@ -1,5 +1,5 @@
 struct ByRef{T}
-   value::Ref{T}
+   ref::Ref{T}
    
    function ByRef(x::Ref{T}) where {T}
        return new{T}(x)
@@ -14,17 +14,17 @@ end
     return ByRef(Ref(x))
 end
 
-@inline value(x::ByRef{T}) where {T} = x.value
-@inline val(x::ByRef{T}) where {T} = x.value[]
+@inline ref(x::ByRef{T}) where {T} = x.ref
+@inline value(x::ByRef{T}) where {T} = x.ref[]
 
-Base.show(io::IO, x::ByRef{T}) where {T} = show(io, x.value[])
+Base.show(io::IO, x::ByRef{T}) where {T} = show(io, x.ref[])
 
 function set!(x::ByRef{T}, value::T) where {T} 
-    x.value[] = value
+    x.ref[] = value
     return x
 end
 
-Base.get(x::ByRef{T}) where {T} = x.value[]
+Base.get(x::ByRef{T}) where {T} = x.ref[]
 
 
 Base.zero(::Type{ByRef{T}}) where {T} = ByRef(T)
