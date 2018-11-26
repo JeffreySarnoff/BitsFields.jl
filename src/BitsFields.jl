@@ -20,10 +20,11 @@ As sizeof is with bytes, bitsof is with bits.
 bitsof(::Type{T}) where {T} = sizeof(T) * 8
 
 
+include("bitfield.jl")
+include("bitfields.jl")
+
 Base.zero(bitfield::BitField{U}) where {U<:UBits} = zero(U)
 Base.zero(bitfields::BitFields{U}) where {U<:UBits} = Ref(zero(U))
 
-include("bitfield.jl")
-include("bitfields.jl")
 
 end # BitsFields
