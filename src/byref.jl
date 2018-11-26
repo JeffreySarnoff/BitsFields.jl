@@ -7,7 +7,7 @@ struct ByRef{T}
 end
 
 @inline function ByRef(::Type{T}) where {T}
-    return new{T}(Ref(zero(T)))
+    return ByRef(Ref(zero(T)))
 end
    
 @inline value(x::ByRef{T}) where {T} = x.value
