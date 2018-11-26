@@ -4,7 +4,7 @@ makedocs(
     modules = [BitsFields],
     sitename = "BitsFields",
     pages  = Any[
-        "Introduction"             => "index.md",
+        "Overview"                 => "index.md",
         "The BitField"             => "thebitfield.md",
         "The BitField, Named"      => "thebitfieldnamed.md",
         "MultiFields"              => "multifields.md",
