@@ -17,7 +17,7 @@ fields:
     maskof0s
     name::Symbol
 """
-struct BitField{U}
+struct BitField{U} <: AbstractBitField
     nbits::BitCount
     shift::BitCount
     maskof1s::U
