@@ -1,15 +1,19 @@
 struct ByRef{T}
    value::Ref{T}
    
-   function ByRef(x::T) where {T}
-       return new{T}(Ref(x))
+   function ByRef(x::Ref{T}) where {T}
+       return new{T}(x)
    end
 end
 
 @inline function ByRef(::Type{T}) where {T}
     return ByRef(Ref(zero(T)))
 end
-   
+
+@inline function ByRef(x::T) where {T}
+    return ByRef(Ref(x))
+end
+
 @inline value(x::ByRef{T}) where {T} = x.value
 @inline val(x::ByRef{T}) where {T} = x.value[]
 
