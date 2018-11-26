@@ -87,7 +87,7 @@ end
 
 @inline function set!(bitfield::BitField{U}, value::U, target::Base.RefValue{U})  where {U<:UBits}
     target[] = set(bitfield, value, target[])
-    return nothing
+    return target
 end
 
 
