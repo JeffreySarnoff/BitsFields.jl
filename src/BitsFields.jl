@@ -2,6 +2,8 @@ module BitsFields
 
 export BitField, BitFields, set!
 
+abstract type AbstractBitField  end
+abstract type AbstractBitFields end
 
 """
     UBits
