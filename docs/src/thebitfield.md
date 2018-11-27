@@ -8,6 +8,9 @@ Referencing individual bit positions within a carrier type (using UInt16 as an e
 |:----------------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | most & least significant |`msbit`| |   |   |   |   |   |   |   |   |   |   |   |   |  |`lsbit`|
 
+
+_The offset from the least significant bit gives the number of bit positions that must be shifted over to take the content occupying the `lsb(it)` and place it into the bit position given by that offset_.
+
 ----
 
 A bitfield may be formed of a single bit's position or formed of as many bit positions as exist within the carrier type, and any number of contiguous bit positions in between.  The widest unsigned bits type is UInt128.  So, the bitfield of maximal span is a field comprised of all 128 bit positions available where the carrier type is UInt128.  For each of our available carrier types {UInt8, UInt16, UInt32, UInt64, UInt128}, there is an immediately associated bitfield of maximal span.  
