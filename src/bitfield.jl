@@ -34,7 +34,11 @@ shift(x::BitField{U}) where {U<:UBits} = x.shift
 maskof1s(x::BitField{U}) where {U<:UBits} = x.maskof1s
 maskof0s(x::BitField{U}) where {U<:UBits} = x.maskof0s
 
-
+const BitField8 = BitField{UInt8}
+const BitField16 = BitField{UInt16}
+const BitField32 = BitField{UInt32}
+const BitField64 = BitField{UInt64}
+const BitField128 = BitField{UInt128}
 
 function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::Symbol) where {U<:UBits}
     span  = BitCount(bitspan)
