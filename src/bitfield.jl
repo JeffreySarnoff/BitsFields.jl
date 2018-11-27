@@ -40,6 +40,12 @@ const BitField32 = BitField{UInt32}
 const BitField64 = BitField{UInt64}
 const BitField128 = BitField{UInt128}
 
+BitField8(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt8, bitspan, bitshift, name)
+BitField16(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt16, bitspan, bitshift, name)
+BitField32(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt32, bitspan, bitshift, name)
+BitField64(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
+BitField128(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt128, bitspan, bitshift, name)
+
 function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::Symbol) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
