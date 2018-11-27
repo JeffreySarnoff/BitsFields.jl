@@ -4,11 +4,11 @@ A bitfield may be formed of a single bit's position or formed of as many bit pos
 
 | carrier type | maximal bitfield span |    comment     |
 |:------------:|:---------------------:|:--------------:|
-| UInt8        | 8                     |  prefer UInt16 |
+| UInt8        | 8                     |  prefer UInt16 unless app requires UInt8 |
 | UInt16       | 16                    |                |
 | UInt32       | 32                    |                |
 | UInt64       | 64                    |                |
-| UInt128      | 128                   |  prefer UInt64 |
+| UInt128      | 128                   |  prefer UInt64 unless app requires UInt128 |
 
 
 To represent a bitfield, any bitfield that
