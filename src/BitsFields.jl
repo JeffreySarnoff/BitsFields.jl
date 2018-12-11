@@ -13,6 +13,13 @@ Unsigned types available to hold multiple bitfields.
 const UBits = Union{UInt128, UInt64, UInt32, UInt16, UInt8}
 
 """
+    IBits
+
+Signed types available to hold bitfield values.
+"""
+const IBits = Union{Int128, Int64, Int32, Int16, Int8}
+
+"""
     bitsof
 
 As sizeof is with bytes, bitsof is with bits.
