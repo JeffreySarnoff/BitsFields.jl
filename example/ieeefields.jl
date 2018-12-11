@@ -1,7 +1,7 @@
 using Base: IEEEFloat, unsigned, sign_mask, exponent_mask, significand_mask
 
 using BitsFields
-using BitsFields: bitsof
+using BitsFields: bitsof, UBits
 
 
 """
