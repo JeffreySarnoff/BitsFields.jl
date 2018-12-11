@@ -1,6 +1,6 @@
 module BitsFields
 
-export BitField, BitFields, ByRef, set!, value
+export BitField, BitFields, ByRef, set!, val
 
 abstract type AbstractBitField  end
 abstract type AbstractBitFields end
