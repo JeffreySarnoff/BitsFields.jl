@@ -36,7 +36,7 @@ bitfields = BitFields(field1, field2)
 ```
 To use the `bitfields`, provide a referenceable, type-matched and zeroed carrier. 
 ```
-workingbits = zero(bitfields)
+carrier = zero(bitfields)
 ```
 Now we can set the fields and get their values.
 
@@ -44,12 +44,12 @@ Now we can set the fields and get their values.
 field1value = 0x15
 field2value = 0x02f6
 
-set!(bitfields[1], field1value, workingbits)
-set!(bitfields[2], field2value, workingbits)
+set!(bitfields[1], field1value, carrier)
+set!(bitfields[2], field2value, carrier)
 
-get(bitfields[2], workingbits)  # UInt16(0x02f6)
+get(bitfields[2], carrier)  # UInt16(0x02f6)
 
-get(bitfields, workingbits)     # [ UInt16(0x15), UInt16(0x02f6) ]
+get(bitfields, carrier)     # [ UInt16(0x15), UInt16(0x02f6) ]
 ```
 
 A bitfield may be changed, just set! it again.
