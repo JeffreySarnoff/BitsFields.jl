@@ -111,7 +111,9 @@ set!(float16.significand, 0x0080, z16)
 
 reinterpret(Float16,ans.ref[]) === Float16(-1.125)
 
-NamedTuple(float16, z16) === (sign = 0x0001, exponent = 0x000f, significand = 0x0080)
+nt = NamedTuple(float16, z16)
+
+nt === (sign = 0x0001, exponent = 0x000f, significand = 0x0080)
 
 reinterpret(Float16, BitsFields.value(BitFields(float16, nt))) == Float16(-1.125)
 
