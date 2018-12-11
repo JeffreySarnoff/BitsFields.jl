@@ -1,7 +1,7 @@
 # BitsFields.jl
 
-### Use adjacent bits as a bitfield. Use adjacent bitfields to copartition roles or handle constituents.
-#### Copyright ©&thinsp;2018 by Jeffrey Sarnoff. &nbsp;&nbsp; This work has been released under The MIT License.
+### Use adjacent bits as a bitfield. Use bitfields to copartition roles or handle constituents.
+#### Copyright ©&thinsp;2018 by Jeffrey Sarnoff. &nbsp; &nbsp; This work has been released under The MIT License.
 
 ----
 
