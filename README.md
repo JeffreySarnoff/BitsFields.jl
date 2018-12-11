@@ -29,8 +29,8 @@ field1shift =  0
 field2span  = 10
 field2shift = field1span
 
-field1 = BitField(UInt16, field1span, field1shift)
-field2 = BitField(UInt16, field2span, field2shift)
+field1 = BitField(UInt16, :field1, field1span, field1shift)
+field2 = BitField(UInt16, :field2, field2span, field2shift)
 
 bitfields = BitFields(field1, field2)
 ```
