@@ -31,7 +31,7 @@ end
 @inline ref(x::ByRef{S,T}) where {S,T} = x.ref
 @inline val(x::ByRef{S,T}) where {S,T} = x.ref[]
 
-@inline refvalue(x::ByRef{S,T}) where {S,T} = reinterpret(sourcetype(x), val(z16))
+@inline refvalue(x::ByRef{S,T}) where {S,T} = reinterpret(sourcetype(x), val(x))
 
 
 Base.show(io::IO, x::ByRef{S,T}) where {S,T} = show(io, val(x))
