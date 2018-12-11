@@ -30,3 +30,48 @@ The span of the significand bitfield is mandated, too.
 The least significant bit of the significand BitField
 occupies the least significant bit of the value_store.
 Therefore, the shift of the significand bitfield is 0.
+
+
+```julia
+
+
+#=
+# generating the bitfields for a Float64, and a Float32, the direct way
+
+sign64 = BitField(UInt64, fieldspan(Float64, sign_mask), fieldshift(Float64, sign_mask), :sign)
+exponent64 = BitField(UInt64, fieldspan(Float64, exponent_mask), fieldshift(Float64, exponent_mask), :exponent)
+significand64  = BitField(UInt64, fieldspan(Float64, significand_mask), fieldshift(Float64, significand_mask), :significand)
+
+float64 = BitFields(sign64, exponent64, significand64)
+
+sign32 = BitField(UInt32, fieldspan(Float32, sign_mask), fieldshift(Float32, sign_mask), :sign)
+exponent32 = BitField(UInt32, fieldspan(Float32, exponent_mask), fieldshift(Float32, exponent_mask), :exponent)
+significand32  = BitField(UInt32, fieldspan(Float32, significand_mask), fieldshift(Float32, significand_mask), :significand)
+
+float32 = BitFields(sign32, exponent32, significand32)
+=#
+
+#=
+# generating the bitfields for a Float64 and a Float32, a more compact way
+
+Base.unsigned(::Type{Float64}) = UInt64
+Base.unsigned(::Type{Float32}) = UInt32
+Base.unsigned(::Type{Float16}) = UInt16
+
+
+BitField(::Type{T}, mask::Function, name::Symbol) where {T<:IEEEFloat} =
+    BitField(unsigned(T), fieldspan(T, mask), fieldshift(T, mask), name)
+
+sign64 = BitField(Float64, sign_mask, :sign)
+exponent64 = BitField(Float64, exponent_mask, :exponent)
+significand64 = BitField(Float64, significand_mask, :significand)
+
+float64 = BitFields(sign64, exponent64, significand64)
+
+sign32 = BitField(Float32, sign_mask, :sign)
+exponent32 = BitField(Float32, exponent_mask, :exponent)
+significand32 = BitField(Float32, significand_mask, :significand)
+
+float32 = BitFields(sign32, exponent32, significand32)
+=#
+```
