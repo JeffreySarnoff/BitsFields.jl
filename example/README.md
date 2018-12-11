@@ -34,8 +34,11 @@ Therefore, the shift of the significand bitfield is 0.
 
 ```julia
 
+fieldspan(::Type{T}, fieldmask) where {T<:IEEEFloat} =
+    bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(T))
 
-#=
+fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} = trailing_zeros(fieldmask(T))
+
 # generating the bitfields for a Float64, and a Float32, the direct way
 
 sign64 = BitField(UInt64, fieldspan(Float64, sign_mask), fieldshift(Float64, sign_mask), :sign)
