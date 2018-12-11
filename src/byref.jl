@@ -15,7 +15,8 @@ end
 end
 
 for (S,T) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16),
-              (:Int64, :UInt64), (:Int32, :UInt32), (:Int16, :UInt16))
+              (:Int64, :UInt64), (:Int32, :UInt32), (:Int16, :UInt16), (:Int8, :UInt8),
+              (:UInt64, :UInt64), (:UInt32, :UInt32), (:UInt16, :UInt16), (:UInt8, :UInt8))
   @eval begin
     function ByRef(x::$S)
         u = reinterpret($T, x)
