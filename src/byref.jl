@@ -14,6 +14,17 @@ end
     return ByRef(S, Ref(x))
 end
 
+for (S,T) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16),
+              (:Int64, :UInt64), (:Int32, :UInt32), (:Int16, :UInt16))
+  @eval begin
+    function ByRef(x::$S)
+        u = reinterpret($T, x)
+        return ByRef($S, Ref(u))
+     end
+  end    
+end
+   
+
 @inline sourcetype(x::ByRef{S,T}) where {S,T} = S
 @inline carriertype(x::ByRef{S,T}) where {S,T} = T
 
