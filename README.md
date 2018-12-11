@@ -8,7 +8,8 @@
 -----
 
 [![Build Status](https://travis-ci.org/JeffreySarnoff/BitsFields.jl.svg?branch=master)](https://travis-ci.org/JeffreySarnoff/BitsFields.jl)
-
+&nbsp; &nbsp; &nbsp;
+[![Docs Latest](https://img.shields.io/badge/docs-latest-blue.svg)](https://jeffreysarnoff.github.io/BitsFields.jl/latest/)
 
 -----
 
