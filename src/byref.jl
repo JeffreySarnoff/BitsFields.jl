@@ -18,7 +18,7 @@ end
 @inline carriertype(x::ByRef{S,T}) where {S,T} = T
 
 @inline ref(x::ByRef{S,T}) where {S,T} = x.ref
-@inline value(x::ByRef{S,T}) where {S,T} = x.ref[]
+@inline val(x::ByRef{S,T}) where {S,T} = x.ref[]
 
 Base.show(io::IO, x::ByRef{S,T}) where {S,T} = show(io, reinterpret(S,x.ref[]))
 
