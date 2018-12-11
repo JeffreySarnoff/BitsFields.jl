@@ -34,7 +34,7 @@ end
 @inline refvalue(x::ByRef{S,T}) where {S,T} = reinterpret(sourcetype(x), val(x))
 
 
-Base.show(io::IO, x::ByRef{S,T}) where {S,T} = show(io, val(x))
+Base.show(io::IO, x::ByRef{S,T}) where {S,T} = show(io, refvalue(x))
 
 function set!(x::ByRef{S,T}, value::T) where {S,T} 
     x.ref[] = value
