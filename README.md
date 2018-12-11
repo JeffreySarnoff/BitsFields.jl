@@ -92,4 +92,4 @@ namedfields.field6 === bitfields[6]
 ```
 ## Use Case
 
-Please see the example directory for a worked example with IEEE 754-2008 Floating Point Standard bit fields.
+This [worked example](https://github.com/JeffreySarnoff/BitsFields.jl/blob/master/example/ieeefields.jl) uses bit fields to access parts of floats in accord with the IEEE 754-2008 Floating Point Standard.
