@@ -78,16 +78,16 @@ nt === (sign = 0x0001, exponent = 0x000f, significand = 0x0080)
 # Using the bitfields defined above
 # #################################
 
-Base.:(+)(a::ByRef{S,T}, b::S) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) + b)
-Base.:(+)(a::S, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(a + refvalue(b))
-Base.:(+)(a::ByRef{S,T}, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) + refvalue(b))
+Base.:(+)(a::ByRef{S,T}, b::S) where {S<:IEEEFloat, T<:UBits} = ByRef(refvalue(a) + b)
+Base.:(+)(a::S, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef(a + refvalue(b))
+Base.:(+)(a::ByRef{S,T}, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef(refvalue(a) + refvalue(b))
 
-Base.:(*)(a::ByRef{S,T}, b::S) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) * b)
-Base.:(*)(a::S, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(a * refvalue(b))
-Base.:(*)(a::ByRef{S,T}, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) * refvalue(b))
+Base.:(*)(a::ByRef{S,T}, b::S) where {S<:IEEEFloat, T<:UBits} = ByRef(refvalue(a) * b)
+Base.:(*)(a::S, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef(a * refvalue(b))
+Base.:(*)(a::ByRef{S,T}, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef(refvalue(a) * refvalue(b))
 
-a = ByRef(12.125)
-b = ByRef(0.125)
+a = ByRef(12.25)
+b = ByRef(0.25)
 c = -0.5
 
 result = (a + b + c) * abs(c)
