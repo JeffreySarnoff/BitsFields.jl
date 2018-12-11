@@ -80,7 +80,7 @@ end
     return isolate(bitfield, source[]) >> bitfield.shift
 end
 
-@inline function Base.get(bitfield::BitField{U}, source::ByRef{U}) where {U<:UBits}
+@inline function Base.get(bitfield::BitField{U}, source::ByRef{S,U}) where {S,U<:UBits}
     return isolate(bitfield, source.ref[]) >> bitfield.shift
 end
 
@@ -95,7 +95,7 @@ set(bitfield::BitField{U}, value::B, target::U) where {U<:UBits, B<:Union{UBits,
 set!(bitfield::BitField{U}, value::B, target::Base.RefValue{U})  where {U<:UBits, B<:Union{UBits,IBits}} =
     set!(bitfield, value%U, target)
 
-set!(bitfield::BitField{U}, value::B, target::ByRef{U})  where {U<:UBits, B<:Union{UBits,IBits}} =
+set!(bitfield::BitField{U}, value::B, target::ByRef{S,U})  where {S, U<:UBits, B<:Union{UBits,IBits}} =
     set!(bitfield, value%U, target)
 
 
@@ -108,7 +108,7 @@ end
     return target
 end
 
-@inline function set!(bitfield::BitField{U}, value::U, target::ByRef{U})  where {U<:UBits}
+@inline function set!(bitfield::BitField{U}, value::U, target::ByRef{S, U})  where {S, U<:UBits}
     target.ref[] = set(bitfield, value, target.ref[])
     return target
 end
