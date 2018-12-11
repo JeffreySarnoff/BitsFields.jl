@@ -109,7 +109,7 @@ set!(float16.sign, 0x0001, z16)
 set!(float16.exponent, 0x00f, z16)
 set!(float16.significand, 0x0080, z16)
 
-reinterpret(Float16,ans.ref[]) === Float16(-1.125)
+reinterpret(Float16, z16.ref[]) === Float16(-1.125)
 
 nt = NamedTuple(float16, z16)
 
