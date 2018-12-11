@@ -103,7 +103,7 @@ float32 = NamedTuple(BitFields(sign32, exponent32, significand32))
 float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
 
 
-z16 = ByRef(UInt16)
+z16 = ByRef(Float16, UInt16)
 
 set!(float16.sign, 1, z16)
 set!(float16.exponent, 15, z16)
@@ -119,59 +119,17 @@ nt === (sign = 0x0001, exponent = 0x000f, significand = 0x0080)
 # Using the bitfields defined above
 # #################################
 
+Base.:(+)(a::ByRef{S,T}, b::S) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) + b)
+Base.:(+)(a::S, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(a + refvalue(b))
+Base.:(+)(a::ByRef{S,T}, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) + refvalue(b))
 
-#=
-mutable struct FP{T,U}
-    floating::RefT
-    unsigned::U
-end
+Base.:(*)(a::ByRef{S,T}, b::S) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) * b)
+Base.:(*)(a::S, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(a * refvalue(b))
+Base.:(*)(a::ByRef{S,T}, b::ByRef{S,T}) where {S<:IEEEFloat, T<:UBits} = ByRef{S,T}(refvalue(a) * refvalue(b))
 
-value(x::FP{T,U}) where {T,U} = x.floating
+a = ByRef(12.125)
+b = ByRef(0.125)
+c = -0.5
 
-FP(x::T) where {T<:IEEEFloat} = FP{T,unsigned(T)}(x, reinterpret(unsigned(T), x))
-FP(x::U) where {U<:Unsigned}  = FP{float(U),U}(reinterpret(float(T), x), x)
+result = (a + b + c) * abs(c)
 
-
-struct FP{T<:IEEEFloat}
-    value::Ref{T}
-end
-
-@inline value(x::FP{T}) where {T<:IEEEFloat} = getfield(x, :value)[]
-
-function Base.setproperty!(x::FP{T}, s::Symbol, v::T) where {T<:IEEEFloat}
-    s === :value && return x.value[] = v
-    throw(ErrorException("No such field ($s)"))
-end
-
-function Base.getproperty(x::FPR, s::Symbol)
-    s === :value && return value(x)
-    throw(ErrorException("No such field ($s)"))
-end
-
-Base.show(io::IO, x::FP{T,U}) where {T,U} = show(io, value(x))
-
-
-function mulbytwo(x::FP{T,U}) where {T<:IEEEFloat,U}
-    originalexponent = get(exponent(T), UNSIGNED(x))
-    # check for potential overflow
-    if originalexponent === exponentfield.ones
-        throw(OverflowError("$(x.fp) * 2"))
-    end
-    
-    mulbytwoexponent = originalexponent + one(U)
-    set!(exponent(T), mulbytwoexponent, x.unsigned)
-    x.floating = reinterpret(T, x.unsigned)
-    
-    return x
-end
-
-
-fpvalue = Ref(reinterpret(UInt64, inv(sqrt(Float64(2.0)))))
-
-set!(float64.exponent,
-     get(float64.exponent,fpvalue) + 1,
-     fpvalue)
-
-reinterpret(Float64,fpvalue[])
-1.414213562373095
-=#
