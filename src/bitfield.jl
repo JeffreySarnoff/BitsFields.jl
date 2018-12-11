@@ -89,13 +89,13 @@ end
 end
 
 
-set(bitfield::BitField{U}, value::UBits, target::U) where {U<:UBits} =
+set(bitfield::BitField{U}, value::B, target::U) where {U<:UBits, B<:Union{UBits,IBits}} =
     set(bitfield, value%U, target)
 
-set!(bitfield::BitField{U}, value::UBits, target::Base.RefValue{U})  where {U<:UBits} =
+set!(bitfield::BitField{U}, value::B, target::Base.RefValue{U})  where {U<:UBits, B<:Union{UBits,IBits}} =
     set!(bitfield, value%U, target)
 
-set!(bitfield::BitField{U}, value::UBits, target::ByRef{U})  where {U<:UBits} =
+set!(bitfield::BitField{U}, value::B, target::ByRef{U})  where {U<:UBits, B<:Union{UBits,IBits}} =
     set!(bitfield, value%U, target)
 
 
@@ -112,7 +112,6 @@ end
     target.ref[] = set(bitfield, value, target.ref[])
     return target
 end
-
 
 
 
