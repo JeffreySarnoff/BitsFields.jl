@@ -105,8 +105,8 @@ float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
 
 z16 = ByRef(UInt16)
 
-set!(float16.sign, 0x0001, z16)
-set!(float16.exponent, 0x00f, z16)
+set!(float16.sign, 1, z16)
+set!(float16.exponent, 15, z16)
 set!(float16.significand, 0x0080, z16)
 
 reinterpret(Float16, z16.ref[]) === Float16(-1.125)
