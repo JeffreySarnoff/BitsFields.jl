@@ -16,7 +16,7 @@
 
 This package provides an easy way to describe and use bitfields within Julia.
 
-## Worked Example
+## Example
 
 We want two bitfields, one that is six bits wide and another that is ten bits wide.
 The total span for both bitfields is 6+10 == 16 bits, so a `UInt16` will hold them.
