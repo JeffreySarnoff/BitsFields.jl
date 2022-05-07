@@ -1,7 +1,7 @@
 # BitsFields.jl
 
-### Use adjacent bits as a bitfield and name it. Use multiple bitfields in distinct roles or as primary elements.
-#### Copyright ©&thinsp;2018 by Jeffrey Sarnoff. &nbsp; &nbsp; This work has been released under The MIT License.
+### Use adjacent bits as a named bitfield. Use multiple bitfields in distinct roles or as primary elements.
+#### Copyright ©&thinsp;2018-2022 by Jeffrey Sarnoff. &nbsp; &nbsp; This work has been released under The MIT License.
 
 ----
 
