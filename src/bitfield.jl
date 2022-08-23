@@ -34,18 +34,6 @@ shift(x::BitField{U}) where {U<:UBits} = x.shift
 maskof1s(x::BitField{U}) where {U<:UBits} = x.maskof1s
 maskof0s(x::BitField{U}) where {U<:UBits} = x.maskof0s
 
-const BitField8 = BitField{UInt8}
-const BitField16 = BitField{UInt16}
-const BitField32 = BitField{UInt32}
-const BitField64 = BitField{UInt64}
-const BitField128 = BitField{UInt128}
-
-BitField8(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt8, bitspan, bitshift, name)
-BitField16(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt16, bitspan, bitshift, name)
-BitField32(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt32, bitspan, bitshift, name)
-BitField64(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
-BitField128(; name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt128, bitspan, bitshift, name)
-
 function BitField(::Type{U}, bitspan::Int, bitshift::Int, name::Symbol) where {U<:UBits}
     span  = BitCount(bitspan)
     shift = BitCount(bitshift)
@@ -58,11 +46,6 @@ end
 
 BitField(::Type{U}, name::Symbol, bitspan::Int, bitshift::Int) where {U<:UBits} =
     BitField(U, bitspan, bitshift, name)
-
-BitField(bitspan::Int, bitshift::Int, name::Symbol) = BitField(UInt64, bitspan, bitshift, name)
-
-BitField(name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
-
 
 @inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
     return source & bitfield.maskof1s
