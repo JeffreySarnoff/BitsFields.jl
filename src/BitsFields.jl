@@ -18,4 +18,7 @@ struct BitFields{N,T}
     fields::NTuple{N,BitField{T}}
 end
 
+BitMasks(::Type{T}) where T = Tuple(map(T, 1:bitsof(T)))
+
+BitFields(underlying::T, NTuple{N,NamedTuple{(:value, :nbits, :shift)
 end  # BitsFields
