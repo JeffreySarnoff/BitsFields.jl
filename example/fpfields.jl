@@ -54,9 +54,9 @@ for N in (64, 32, 16)
   end
 end
 
-floatbits(::Type{Float64}) = NamedTuple(BitFields(sign64, exponent64, significand64))
-floatbits(::Type{Float32}) = NamedTuple(BitFields(sign32, exponent32, significand32))
-floatbits(::Type{Float16}) = NamedTuple(BitFields(sign16, exponent16, significand16))
+const float16bits = NamedTuple(BitFields(sign64, exponent64, significand64))
+const float32bits = NamedTuple(BitFields(sign32, exponent32, significand32))
+const float16bits = NamedTuple(BitFields(sign16, exponent16, significand16))
 
 z16 = ByRef(Float16, UInt16)
 
