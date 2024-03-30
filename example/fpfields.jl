@@ -3,7 +3,6 @@ using Base: IEEEFloat, unsigned, sign_mask, exponent_mask, significand_mask
 using BitsFields
 using BitsFields: bitsof, UBits
 
-
 """
     fieldspan
 
@@ -19,7 +18,7 @@ To tally the 1-bits, we subtract any leading 0-bits
 and subtract any trailing 0-bits from the
 number of bits provided and given by the value_store.
 (This way, no reliance on tabulated values is needed.
- We stay within the information availablilty of Julia.)
+ We stay within the information availability of Julia.)
 """ 
 fieldspan(::Type{T}, fieldmask) where {T<:IEEEFloat} =
     bitsof(T) - leading_zeros(fieldmask(T)) - trailing_zeros(fieldmask(T))
@@ -38,7 +37,6 @@ we count the empty bit positions that trail the bitfield.
 fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    trailing_zeros(fieldmask(T))
 
-
 ###################################################################
 
 for N in (64, 32, 16)
@@ -56,11 +54,9 @@ for N in (64, 32, 16)
   end
 end
 
-
 float64 = NamedTuple(BitFields(sign64, exponent64, significand64))
 float32 = NamedTuple(BitFields(sign32, exponent32, significand32))
 float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
-
 
 z16 = ByRef(Float16, UInt16)
 
@@ -72,7 +68,6 @@ refvalue(z16) == Float16(-1.125)
 
 nt = NamedTuple(float16, z16)
 nt === (sign = 0x0001, exponent = 0x000f, significand = 0x0080)
-
 
 # #################################
 # Using the bitfields defined above
