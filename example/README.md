@@ -74,4 +74,3 @@ significand32 = BitField(Float32, significand_mask, :significand)
 float32bits = BitFields(sign32, exponent32, significand32)
 ```
 
-```
