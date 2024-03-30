@@ -1,7 +1,6 @@
 using BitsFields
 using Test
 
-
 field1span  =  6
 field1shift =  0
 field2span  = 10
@@ -14,7 +13,6 @@ bitfields = BitFields(field1, field2)
 
 workingbits = zero(bitfields)
 
-
 field1value = 0x15
 field2value = 0x02f6
 
@@ -24,8 +22,6 @@ set!(bitfields[2], field2value, workingbits)
 @test get(bitfields[2], workingbits) == UInt16(0x02f6)
 
 @test get(bitfields, workingbits)    == [ UInt16(0x15), UInt16(0x02f6) ]
-
-
 
 #                    span      shift      name         bits used
 bitfield1 = BitField(  8,            0, :field1);   #      8
