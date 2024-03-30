@@ -6,7 +6,6 @@ struct BitFields{N,U} <: AbstractBitFields  # N BitField{U} fields
    end
 end
 
-
 Base.eltype(::Type{BitFields{N,U}}) where {N,U} = U
 Base.eltype(x::BitFields{N,U}) where {N,U} = U
 
@@ -40,8 +39,7 @@ end
 Base.get(bitfields::BitFields{N,U}, bits::Ref{U}) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
 Base.get(bitfields::BitFields{N,U}, bits::U) where {N,U<:UBits} = [get(bitfield, bits) for bitfield in bitfields]
 
-
-names(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((name(bitfield) for bitfield in bitfields)...,)
+Base.names(bitfields::BitFields{N,U}) where {N,U<:UBits} = ((name(bitfield) for bitfield in bitfields)...,)
 
 function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    bitfieldnames  = names(bitfields)
@@ -49,7 +47,6 @@ function Base.NamedTuple(bitfields::BitFields{N,U}) where {N,U<:UBits}
    nt = NamedTuple{bitfieldnames,NTuple{N,BitField}}(values)
    return nt
 end
-
 
 """
     valuesoffields
