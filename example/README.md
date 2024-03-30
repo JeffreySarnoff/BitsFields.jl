@@ -1,5 +1,4 @@
-BitFields conforming to the IEEE Floating Point Standard
-
+### BitFields used in support of IEEE 754-2019, the Standard for Floating-Point Arithmetic.
 
 Standards conformant binary floating point represenentations
 have "three componants: a sign, an exponent, and a significand" [§2.1.26]
@@ -16,7 +15,7 @@ The exponent bitfield is adjacent to the sign bitfield, from below
 position in the value_store than does the exponent bitfield; with
 respect to positional significance, the exponent bitfield follows
 the sign bitfield).  The span of the exponent bitfield is given
-by fiat in the Standard (see table 3.2).
+in the Standard (see table 3.2).
 
 The shift of the exponent bitfield is less than the shift of the
 sign bitfield, as that field occupies a more significant (the most
@@ -30,7 +29,6 @@ The span of the significand bitfield is mandated, too.
 The least significant bit of the significand BitField
 occupies the least significant bit of the value_store.
 Therefore, the shift of the significand bitfield is 0.
-
 
 ```julia
 
