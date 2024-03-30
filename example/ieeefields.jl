@@ -37,7 +37,6 @@ we count the empty bit positions that trail the bitfield.
 fieldshift(::Type{T}, fieldmask) where {T<:IEEEFloat} =
    trailing_zeros(fieldmask(T))
 
-
 ###################################################################
 
 for N in (64, 32, 16)
