@@ -63,7 +63,6 @@ BitField(bitspan::Int, bitshift::Int, name::Symbol) = BitField(UInt64, bitspan, 
 
 BitField(name::Symbol, bitspan::Int, bitshift::Int) = BitField(UInt64, bitspan, bitshift, name)
 
-
 @inline function isolate(bitfield::BitField{U}, source::U) where {U<:UBits}
     return source & bitfield.maskof1s
 end
