@@ -23,8 +23,7 @@ for (S,T) in ((:Float64, :UInt64), (:Float32, :UInt32), (:Float16, :UInt16),
         return ByRef($S, Ref(u))
      end
   end    
-end
-   
+end   
 
 @inline sourcetype(x::ByRef{S,T}) where {S,T} = S
 @inline carriertype(x::ByRef{S,T}) where {S,T} = T
@@ -33,7 +32,6 @@ end
 @inline val(x::ByRef{S,T}) where {S,T} = x.ref[]
 
 @inline refvalue(x::ByRef{S,T}) where {S,T} = reinterpret(sourcetype(x), val(x))
-
 
 Base.show(io::IO, x::ByRef{S,T}) where {S,T} = show(io, refvalue(x))
 
