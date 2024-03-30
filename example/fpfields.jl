@@ -54,19 +54,19 @@ for N in (64, 32, 16)
   end
 end
 
-float64 = NamedTuple(BitFields(sign64, exponent64, significand64))
-float32 = NamedTuple(BitFields(sign32, exponent32, significand32))
-float16 = NamedTuple(BitFields(sign16, exponent16, significand16))
+floatbits(::Type{Float64}) = NamedTuple(BitFields(sign64, exponent64, significand64))
+floatbits(::Type{Float32}) = NamedTuple(BitFields(sign32, exponent32, significand32))
+floatbits(::Type{Float16}) = NamedTuple(BitFields(sign16, exponent16, significand16))
 
 z16 = ByRef(Float16, UInt16)
 
-set!(float16.sign, 1, z16)
-set!(float16.exponent, 15, z16)
-set!(float16.significand, 0x0080, z16)
+set!(floatbits(Float16).sign, 1, z16)
+set!(floatbits(Float16).exponent, 15, z16)
+set!(floatbits(Float16).significand, 0x0080, z16)
 
 refvalue(z16) == Float16(-1.125)
 
-nt = NamedTuple(float16, z16)
+nt = NamedTuple(floatbits(Flaot16), z16)
 nt === (sign = 0x0001, exponent = 0x000f, significand = 0x0080)
 
 # #################################
