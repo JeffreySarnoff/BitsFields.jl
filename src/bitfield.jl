@@ -88,7 +88,6 @@ end
     value << bitfield.shift
 end
 
-
 set(bitfield::BitField{U}, value::B, target::U) where {U<:UBits, B<:Union{UBits,IBits}} =
     set(bitfield, value%U, target)
 
@@ -97,7 +96,6 @@ set!(bitfield::BitField{U}, value::B, target::Base.RefValue{U})  where {U<:UBits
 
 set!(bitfield::BitField{U}, value::B, target::ByRef{S,U})  where {S, U<:UBits, B<:Union{UBits,IBits}} =
     set!(bitfield, value%U, target)
-
 
 @inline function set(bitfield::BitField{U}, value::U, target::U)  where {U<:UBits}
     return filter(bitfield, target) | put(bitfield, value)
@@ -113,8 +111,6 @@ end
     return target
 end
 
-
-
 function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBits}
     if !(bitspan > 0 && bitspan + bitshift <= bitsof(U))
         if bitspan <= 0
@@ -125,7 +121,6 @@ function validate(::Type{U}, bitspan::Integer, bitshift::Integer) where {U<:UBit
     end
     return nothing
 end
-
 
 onebits(::Type{T}, bitspan::I, bitshift::I) where {T<:UBits, I<:Integer} =
     ~(~zero(T) << bitspan) << bitshift
