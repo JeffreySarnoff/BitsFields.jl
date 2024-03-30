@@ -1,7 +1,7 @@
 ### BitFields used in support of IEEE 754-2019, the Standard for Floating-Point Arithmetic.
 
-Standards conformant binary floating point represenentations
-have "three componants: a sign, an exponent, and a significand" [§2.1.26]
+Standards conformant binary floating point representations
+have "three components: a sign, an exponent, and a significand" [§2.1.26]
 
 The _sign_ is encoded in the most significant bit of the value_store.
 The bitfield for the floating-point sign (nonnegative or negative)
